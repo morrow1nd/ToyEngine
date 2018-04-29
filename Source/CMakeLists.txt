@@ -4,29 +4,20 @@
 
 ## CMake Options
 
-# ### RenderAPI to use
-# set(TRL_DX11         "(1 << 0)")
-# set(TRL_OPENGL       "(1 << 1)")
-# set(TRL_OPENGLES     "(1 << 2)")
+### Runtime Check
+option(OPTION_TOY_ENGINE_MORE_RUNTIME_CHECK
+    "Open more ToyEngine runtime checking" ON)
+if(OPTION_TOY_ENGINE_MORE_RUNTIME_CHECK)
+    set(TOY_ENGINE_MORE_RUNTIME_CHECK "1")
+else()
+    set(TOY_ENGINE_MORE_RUNTIME_CHECK "0")
+endif()
 
-# set(OPTION_TRL_RENDER_API "OpenGL" CACHE STRING "Render API to use.")
-# set_property(CACHE OPTION_TRL_RENDER_API PROPERTY STRINGS "OpenGL" "DirectX 11" "OpenGL ES")
 
-# if(OPTION_TRL_RENDER_API MATCHES "DirectX 11")
-#     set(TRL_USING_DX11 TRUE)
-#     set(TRL_RENDER_API ${TRL_DX11})
-# elseif(OPTION_TRL_RENDER_API MATCHES "OpenGL")
-#     set(TRL_USING_OPENGL TRUE)
-#     set(TRL_RENDER_API ${TRL_OPENGL})
-# else()
-#     set(TRL_USING_OPENGLES TRUE)
-#     set(TRL_RENDER_API ${TRL_OPENGLES})
-# endif()
-
-# ## end of CMake Options
+## end of CMake Options
 
 ## Third Party Libs
-# ADD_SUBDIRECTORY(ThirdParty)
+#ADD_SUBDIRECTORY(ThirdParty)
 
 
 ## Configure file
@@ -38,8 +29,8 @@ CONFIGURE_FILE(
 ADD_SUBDIRECTORY(TRL)
 INCLUDE_DIRECTORIES(${TRL_INCLUDE_PATHS})
 
-# # Source files and their filters
-# INCLUDE(CMakeSources.cmake)
+# Source files and their filters
+INCLUDE(CMakeSources.cmake)
 
 
 INCLUDE_DIRECTORIES(
