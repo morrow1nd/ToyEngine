@@ -1,16 +1,24 @@
 #pragma once
 
 #include "ToyUtility/Prerequisites/PreDefine.h"
+#include "ToyUtility/String/String.h"
 #include "ToyUtility/Container/UnorderedMap.h"
 #include "ToyUtility/Container/Vector.h"
-#include "Math/Matrix4.h"
-#include "Math/TransformPRS.h"
+#include "ToyUtility/Math/Matrix4.h"
+#include "ToyUtility/Math/TransformPRS.h"
 #include "ToyEngine/Scene/ComponentBase.h"
 #include "ToyEngine/Scene/ComponentManagerHelper.h"
 
 
 namespace ToyEngine
 {
+
+
+using ToyUtility::TransformPRS;
+using ToyUtility::Vector3;
+using ToyUtility::Quaternion;
+using ToyUtility::Matrix4;
+using ToyUtility::Radian;
 
 
 class CTransform : public ComponentBase
@@ -101,15 +109,15 @@ public:
 
     CTransform* GetParent() const { return m_Parent; }
 
-    CTransform* GetChild(uint32 index) const;
+    CTransform* GetChild(ToyUtility::uint32 index) const;
 
-    uint32 GetChildrenCount() const { return static_cast<uint32>(m_Children.size()); }
+    ToyUtility::uint32 GetChildrenCount() const { return static_cast<ToyUtility::uint32>(m_Children.size()); }
 
-    CTransform findPath(const String& path) const;
+    CTransform findPath(const ToyUtility::String& path) const;
 
-    CTransform* FindChild(const String& name, bool recursive = true);
+    CTransform* FindChild(const ToyUtility::String& name, bool recursive = true);
 
-    Vector<CTransform*> FindChildren(const String& name, bool recursive = true);
+    ToyUtility::Vector<CTransform*> FindChildren(const ToyUtility::String& name, bool recursive = true);
 
     //void SetActive(bool active);
 
@@ -117,7 +125,7 @@ public:
 
 private:
     CTransform* m_Parent;
-    Vector<CTransform*> m_Children;
+    ToyUtility::Vector<CTransform*> m_Children;
     bool m_ActiveSelf;
     bool m_ActiveHierarchy;
 };

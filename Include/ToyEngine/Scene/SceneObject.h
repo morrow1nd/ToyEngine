@@ -11,7 +11,7 @@ namespace ToyEngine
 class SceneObject
 {
 public:
-    typedef uint32 IdType;
+    typedef ToyUtility::uint32 IdType;
 
     SceneObject()
         : m_Id(0)
@@ -30,7 +30,7 @@ public:
 
 
 private:
-    uint32 m_Id;
+    ToyUtility::uint32 m_Id;
     
     friend class SceneObjectHasher;
 };

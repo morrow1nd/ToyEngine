@@ -1,10 +1,10 @@
 #pragma once
 
 #include "ToyUtility/Prerequisites/PreDefine.h"
-#include "ToyEngine/Scene/Components/CTransform.h"
-#include "Base/IModule.h"
-#include "ToyEngine/Scene/IComponentManager.h"
+#include "ToyUtility/DesignPattern/IModule.h"
 #include "ToyEngine/Scene/SceneObjectManager.h"
+#include "ToyEngine/Scene/IComponentManager.h"
+#include "ToyEngine/Scene/Components/CTransform.h"
 
 
 namespace ToyEngine
@@ -14,7 +14,7 @@ namespace ToyEngine
 class Scene;
 class IComponentManager;
 
-class SceneManager : public IModule
+class SceneManager : public ToyUtility::IModule
 {
 public:
     SceneManager()
@@ -22,13 +22,13 @@ public:
     {
     }
 
-    virtual void StartUp(Engine& engine) override;
+    virtual void StartUp() override;
     virtual void ShutDown() override;
 
     template<typename ComponentType>
     IComponentManager* GetComponentManager()
     {
-        return GetComponentManagerHelper<ComponentType>().GetComponentManager(*this);
+        return _GetComponentManagerHelper<ComponentType>().GetComponentManager(*this);
     }
 
     Scene* GetCurrScene()
@@ -84,10 +84,10 @@ public:
 
 
 private:
-    friend class GetComponentManagerHelper;
+    friend class _GetComponentManagerHelper;
 
     template<typename ComponentType>
-    struct GetComponentManagerHelper
+    struct _GetComponentManagerHelper
     {
         IComponentManager* GetComponentManager(SceneManager& sceneManager)
         {
@@ -96,7 +96,7 @@ private:
     };
 
     template<>
-    struct GetComponentManagerHelper<CTransform>
+    struct _GetComponentManagerHelper<CTransform>
     {
         IComponentManager* GetComponentManager(SceneManager& sceneManager)
         {

@@ -31,7 +31,7 @@ public:
 
     
 private:
-    UnorderedSet<SceneObject, SceneObjectHasher> m_SceneObjects;
+    ToyUtility::UnorderedSet<SceneObject, SceneObjectHasher> m_SceneObjects;
     SceneObject::IdType m_IdIndex;
 };
 

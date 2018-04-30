@@ -7,7 +7,7 @@ namespace ToyEngine
 {
 
 
-void SceneManager::StartUp(Engine& engine)
+void SceneManager::StartUp()
 {
     m_CurrScene = new Scene();
 }
