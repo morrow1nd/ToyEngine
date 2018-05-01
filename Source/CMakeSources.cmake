@@ -26,7 +26,23 @@ set(TOY_ENGINE_SRC_SCENE_COMPONENTS
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Scene/Components/CBlocks.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Scene/Components/CBlocksRender.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Scene/Components/CTransform.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Scene/Components/CMeshFilter.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Scene/Components/CMeshRenderer.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Scene/Components/CCamera.cpp"
 )
+
+SET(TOY_ENGINE_INC_GRAPHICS
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Material.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Shader.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Texture2D.h"
+)
+
+set(TOY_ENGINE_SRC_GRAPHICS
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Material.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Shader.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Texture2D.cpp"
+)
+
 
 # if(MSVC)
 #   list(APPEND BS_BANSHEECORE_INC_PLATFORM VSVisualizations.natvis)
@@ -44,20 +60,27 @@ set(TOY_ENGINE_SRC_SCENE_COMPONENTS
 # endif()
 
 source_group("CMake"									FILES "${TOY_ENGINE_SOURCE_DIR}/../CMakeLists.txt")
+source_group("CMake\\Example"							FILES "${TOY_ENGINE_SOURCE_DIR}/../Example/CMakeLists.txt")
 source_group("CMake\\Source"                            FILES "CMakeSources.cmake" "CMakeLists.txt")
 source_group("CMake\\Source\\ThirdParty"				FILES "${TOY_ENGINE_SOURCE_DIR}/ThirdParty/CMakeLists.txt")
+
 source_group("Header Files\\Scene"						FILES ${TOY_ENGINE_INC_SCENE})
 source_group("Source Files\\Scene"						FILES ${TOY_ENGINE_SRC_SCENE})
 source_group("Header Files\\Scene\\Components"			FILES ${TOY_ENGINE_INC_SCENE_COMPONENTS})
 source_group("Source Files\\Scene\\Components"			FILES ${TOY_ENGINE_SRC_SCENE_COMPONENTS})
+source_group("Header Files\\Graphics"					FILES ${TOY_ENGINE_INC_GRAPHICS})
+source_group("Source Files\\Graphics"					FILES ${TOY_ENGINE_SRC_GRAPHICS})
 
 
 set(TOY_ENGINE_SRC
 	"${TOY_ENGINE_SOURCE_DIR}/../CMakeLists.txt"
+	"${TOY_ENGINE_SOURCE_DIR}/../Example/CMakeLists.txt"
     "CMakeSources.cmake" "CMakeLists.txt"
 	"${TOY_ENGINE_SOURCE_DIR}/ThirdParty/CMakeLists.txt"
 	${TOY_ENGINE_INC_SCENE}
 	${TOY_ENGINE_SRC_SCENE}
 	${TOY_ENGINE_INC_SCENE_COMPONENTS}
 	${TOY_ENGINE_SRC_SCENE_COMPONENTS}
+	${TOY_ENGINE_INC_GRAPHICS}
+	${TOY_ENGINE_SRC_GRAPHICS}
 )

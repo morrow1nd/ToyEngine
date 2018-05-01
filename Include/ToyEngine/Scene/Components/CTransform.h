@@ -117,7 +117,7 @@ public:
 
     CTransform* FindChild(const ToyUtility::String& name, bool recursive = true);
 
-    ToyUtility::Vector<CTransform*> FindChildren(const ToyUtility::String& name, bool recursive = true);
+    ToyUtility::List<CTransform*> FindChildren(const ToyUtility::String& name, bool recursive = true);
 
     //void SetActive(bool active);
 
@@ -125,7 +125,7 @@ public:
 
 private:
     CTransform* m_Parent;
-    ToyUtility::Vector<CTransform*> m_Children;
+    ToyUtility::List<CTransform*> m_Children;
     bool m_ActiveSelf;
     bool m_ActiveHierarchy;
 };
