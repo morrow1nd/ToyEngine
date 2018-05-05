@@ -1,26 +1,47 @@
 #pragma once
 
 #include "ToyUtility/Prerequisites/PreDefine.h"
+#include "ToyUtility/String/String.h"
 #include "ToyUtility/DesignPattern/IModule.h"
+#include "ToyUtility/Event/Event.h"
+#include "ToyEngine/Engine/EngineModule.h"
 #include "ToyEngine/Scene/SceneObjectManager.h"
-#include "ToyEngine/Scene/IComponentManager.h"
+#include "ToyEngine/Engine/EngineEventId.h"
+
+// Component Managers
 #include "ToyEngine/Scene/Components/CTransform.h"
+#include "ToyEngine/Scene/Components/CMeshFilter.h"
+#include "ToyEngine/Scene/Components/CMeshRenderer.h"
 
 
 namespace ToyEngine
 {
 
 
+#define TOY_ENGINE_COMPONENT_MANAGER_HELPER_SPECFIY(ComponentType, ComponentManagerMemberName)  \
+template<>                                                                                      \
+struct _GetComponentManagerHelper<ComponentType>                                                \
+{                                                                                               \
+    IComponentManager* GetComponentManager(SceneManager& sceneManager)                          \
+    {                                                                                           \
+        return &(sceneManager.ComponentManagerMemberName);                                      \
+    }                                                                                           \
+};
+
+
 class Scene;
 class IComponentManager;
 
-class SceneManager : public ToyUtility::IModule
+
+class SceneManager : public EngineModule
 {
 public:
-    SceneManager()
-        : m_CurrScene(nullptr)
-    {
-    }
+    SceneManager(EngineModuleId moduleId)
+        :
+        EngineModule(moduleId, "SceneManager"),
+        m_CurrScene(nullptr)
+    {}
+
 
     virtual void StartUp() override;
     virtual void ShutDown() override;
@@ -41,22 +62,9 @@ public:
         return m_CurrScene;
     }
 
-    SceneObject CreateSceneObject()
-    {
-        auto so = m_SceneObjectManager.CreateSceneObject();
+    SceneObject CreateSceneObject();
 
-        // Every SceneObject has a CTransform component
-        m_CTransformComponentManager.AddComponent(so);
-
-        return so;
-    }
-
-    void DestorySceneObject(SceneObject so)
-    {
-        m_CTransformComponentManager.DestoryComponent(so);
-
-        m_SceneObjectManager.DestorySceneObject(so);
-    }
+    void DestorySceneObject(SceneObject so);
 
     template<typename ComponentType>
     ComponentType& HasComponent(SceneObject so)
@@ -83,6 +91,7 @@ public:
     }
 
 
+    // GetComponentManager
 private:
     friend class _GetComponentManagerHelper;
 
@@ -95,14 +104,14 @@ private:
         }
     };
 
-    template<>
-    struct _GetComponentManagerHelper<CTransform>
-    {
-        IComponentManager* GetComponentManager(SceneManager& sceneManager)
-        {
-            return &(sceneManager.m_CTransformComponentManager);
-        }
-    };
+    TOY_ENGINE_COMPONENT_MANAGER_HELPER_SPECFIY(CTransform, m_CTransformComponentManager);
+    TOY_ENGINE_COMPONENT_MANAGER_HELPER_SPECFIY(CMeshFilter, m_CMeshFilterComponentManager);
+    TOY_ENGINE_COMPONENT_MANAGER_HELPER_SPECFIY(CMeshRenderer, m_MeshRendererComponentManager);
+
+
+    // Template cache data
+private:
+    ToyUtility::Event m_Event;
 
 
 private:
@@ -111,6 +120,8 @@ private:
     SceneObjectManager m_SceneObjectManager;
 
     CTransformComponentManager m_CTransformComponentManager;
+    CMeshFilterComponentManager m_CMeshFilterComponentManager;
+    CMeshRendererComponentManager m_MeshRendererComponentManager;
 };
 
 

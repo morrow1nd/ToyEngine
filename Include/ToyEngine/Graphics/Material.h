@@ -13,11 +13,16 @@ namespace ToyEngine
 class Material
 {
 public:
+    int GetShaderPropertieCount() const;
+    const ShaderPropertie& GetShaderPropertieInfo(int index) const;
+    const void* GetShaderPropertieValue(int index) const;
+
+    // TODO: setters
 
 
 private:
     ToyUtility::SPtr<Shader> m_Shader;
-    // ShaderSetup
+    void* m_ShaderPropertieValues;
 };
 
 

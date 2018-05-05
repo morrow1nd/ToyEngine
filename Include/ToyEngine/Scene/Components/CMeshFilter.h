@@ -4,6 +4,7 @@
 #include "ToyUtility/Container/List.h"
 #include "ToyUtility/Math/Vector3.h"
 #include "ToyEngine/Scene/ComponentBase.h"
+#include "ToyEngine/Scene/ComponentManagerHelper.h"
 
 
 namespace ToyEngine
@@ -70,6 +71,8 @@ private:
     ToyUtility::List<ToyUtility::uint16> m_Triangles;
     ToyUtility::List<int> m_SubMeshTriangleIndices;
 };
+
+USING_COMPONENT_MANAGER_HELPER(CMeshFilter);
 
 
 } // end of namespace ToyEngine

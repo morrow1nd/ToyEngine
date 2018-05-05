@@ -15,24 +15,22 @@ public:
 
     SceneObject()
         : m_Id(0)
-    {
-    }
+    {}
 
     SceneObject(SceneObject::IdType id)
         : m_Id(id)
-    {
-    }
+    {}
 
     bool operator==(const SceneObject& rh) const
     {
         return this->m_Id == rh.m_Id;
     }
 
+    ToyUtility::uint32 GetId() const { return m_Id; }
+
 
 private:
     ToyUtility::uint32 m_Id;
-    
-    friend class SceneObjectHasher;
 };
 
 class SceneObjectHasher
@@ -40,7 +38,7 @@ class SceneObjectHasher
 public:
     size_t operator()(const SceneObject& so) const
     {
-        return std::hash<SceneObject::IdType> ()(so.m_Id);
+        return std::hash<SceneObject::IdType> ()(so.GetId());
     }
 };
 

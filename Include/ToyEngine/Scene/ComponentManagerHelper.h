@@ -1,7 +1,8 @@
 #pragma once
 
-#include "ToyUtility/Prerequisites/Types.h"
-#include "ToyUtility/Container/Vector.h"
+#include "ToyUtility/Prerequisites/Predefine.h"
+#include "ToyUtility/Container/List.h"
+#include "ToyUtility/Container/UnorderedMap.h"
 #include "ToyEngine/Scene/IComponentManager.h"
 
 

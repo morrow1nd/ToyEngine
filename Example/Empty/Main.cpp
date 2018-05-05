@@ -3,6 +3,9 @@
 
 #include <vector>
 #include <memory>
+#include <Windows.h>
+
+#include "ToyEngine/Engine/Engine.h"
 
 
 using namespace std;
@@ -10,9 +13,14 @@ using namespace std;
 
 int main()
 {
-    std::cout << sizeof(std::vector<int>) << std::endl;
-    std::cout << sizeof(std::vector<std::vector<int>>) << std::endl;
-    std::cout << sizeof(shared_ptr<int>) << std::endl;
+    ToyEngine::Engine::Instance().StartUp();
+    
+    while (true)
+    {
+        ToyEngine::Engine::Instance().Step(0.1f);
+
+        Sleep(100); // 0.1 second
+    }
 
     system("pause");
     return 0;

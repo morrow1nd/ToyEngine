@@ -1,3 +1,25 @@
+SET(TOY_ENGINE_INC_ROOT
+)
+SET(TOY_ENGINE_SRC_ROOT
+)
+
+SET(TOY_ENGINE_INC_DEBUG
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Debug/Logger.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Debug/DebugModule.h"
+)
+SET(TOY_ENGINE_SRC_DEBUG
+)
+
+SET(TOY_ENGINE_INC_ENGINE
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Engine/Engine.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Engine/EngineEventId.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Engine/EngineModule.h"
+)
+SET(TOY_ENGINE_SRC_ENGINE
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Engine/Engine.cpp"
+)
+
+
 SET(TOY_ENGINE_INC_SCENE
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Scene/ComponentBase.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Scene/ComponentManagerHelper.h"
@@ -33,12 +55,14 @@ set(TOY_ENGINE_SRC_SCENE_COMPONENTS
 
 SET(TOY_ENGINE_INC_GRAPHICS
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Material.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/RendererManager.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Shader.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Texture2D.h"
 )
 
 set(TOY_ENGINE_SRC_GRAPHICS
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Material.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/RendererManager.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Shader.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Texture2D.cpp"
 )
@@ -64,6 +88,12 @@ source_group("CMake\\Example"							FILES "${TOY_ENGINE_SOURCE_DIR}/../Example/C
 source_group("CMake\\Source"                            FILES "CMakeSources.cmake" "CMakeLists.txt")
 source_group("CMake\\Source\\ThirdParty"				FILES "${TOY_ENGINE_SOURCE_DIR}/ThirdParty/CMakeLists.txt")
 
+source_group("Header Files"								FILES ${TOY_ENGINE_INC_ROOT})
+source_group("Source Files"								FILES ${TOY_ENGINE_SRC_ROOT})
+source_group("Header Files\\Debug"						FILES ${TOY_ENGINE_INC_DEBUG})
+source_group("Source Files\\Debug"						FILES ${TOY_ENGINE_SRC_DEBUG})
+source_group("Header Files\\Engine"						FILES ${TOY_ENGINE_INC_ENGINE})
+source_group("Source Files\\Engine"						FILES ${TOY_ENGINE_SRC_ENGINE})
 source_group("Header Files\\Scene"						FILES ${TOY_ENGINE_INC_SCENE})
 source_group("Source Files\\Scene"						FILES ${TOY_ENGINE_SRC_SCENE})
 source_group("Header Files\\Scene\\Components"			FILES ${TOY_ENGINE_INC_SCENE_COMPONENTS})
@@ -77,6 +107,12 @@ set(TOY_ENGINE_SRC
 	"${TOY_ENGINE_SOURCE_DIR}/../Example/CMakeLists.txt"
     "CMakeSources.cmake" "CMakeLists.txt"
 	"${TOY_ENGINE_SOURCE_DIR}/ThirdParty/CMakeLists.txt"
+	${TOY_ENGINE_INC_ROOT}
+	${TOY_ENGINE_SRC_ROOT}
+	${TOY_ENGINE_INC_DEBUG}
+	${TOY_ENGINE_SRC_DEBUG}
+	${TOY_ENGINE_INC_ENGINE}
+	${TOY_ENGINE_SRC_ENGINE}
 	${TOY_ENGINE_INC_SCENE}
 	${TOY_ENGINE_SRC_SCENE}
 	${TOY_ENGINE_INC_SCENE_COMPONENTS}
