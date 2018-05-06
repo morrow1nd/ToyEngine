@@ -23,6 +23,15 @@ using ToyUtility::Radian;
 
 class CTransform : public ComponentBase
 {
+public:
+    const ToyUtility::String& GetName() const { return m_Name; }
+    void SetName(const ToyUtility::String& name) { m_Name = name; }
+
+
+private:
+    ToyUtility::String m_Name;
+
+
     /************************************************************************/
     /*                             Transform                                */
     /************************************************************************/
@@ -58,7 +67,7 @@ public:
 
     // Gets the objects inverse world transform matrix.
     // @note	Performance warning : This might involve updating the transforms if the transform is dirty.
-    Matrix4 GetInvWorldMatrix() const;
+    Matrix4 GetInverseWorldMatrix() const;
 
     // Get the object's local transform matrix
     const Matrix4& GetLocalMatrix() const;
@@ -92,11 +101,17 @@ public:
     // @param[in]	angle	Angle to rotate by.
     void Pitch(const Radian& angle);
 
+
+private:
+    void _UpdateWorldTrfm() const;
+    void _UpdateLocalTrfm() const;
+
+
 private:
     TransformPRS                m_LocalTrfm;
-    //mutable TransformPRS        m_CachedWorldTrfm;
-    //mutable Matrix4             m_CachedLocalTrfmMatrix;
-    //mutable Matrix4             m_CachedWorldTrfmMatrix;
+    mutable TransformPRS        m_CachedWorldTrfm;
+    mutable Matrix4             m_CachedLocalTrfmMatrix;
+    mutable Matrix4             m_CachedWorldTrfmMatrix;
 
 
     /************************************************************************/
@@ -105,7 +120,7 @@ private:
 public:
     // Changes the parent of this object. Also removes the object from the current parent
     // and attach it to the new parent.
-    void SetParent(const SceneObject& parent, bool keepWorldTransform = true);
+    void SetParent(CTransform& parent, bool keepWorldTransform = true);
 
     CTransform* GetParent() const { return m_Parent; }
 
@@ -113,7 +128,7 @@ public:
 
     ToyUtility::uint32 GetChildrenCount() const { return static_cast<ToyUtility::uint32>(m_Children.size()); }
 
-    CTransform findPath(const ToyUtility::String& path) const;
+    CTransform* findPath(const ToyUtility::String& path) const;
 
     CTransform* FindChild(const ToyUtility::String& name, bool recursive = true);
 
@@ -122,6 +137,12 @@ public:
     //void SetActive(bool active);
 
     //void GetActive(bool self = false) const;
+
+
+private:
+    void _RemoveChild(CTransform& object);
+    void _AddChild(CTransform& object);
+
 
 private:
     CTransform* m_Parent;

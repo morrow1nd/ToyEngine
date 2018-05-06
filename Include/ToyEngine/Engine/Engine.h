@@ -10,6 +10,12 @@
 #include "ToyEngine/Debug/DebugModule.h"
 
 
+// TODO List:
+// * add virtual destructor for virtual class
+// * remove ToyUtility/Math's old code(cassert, coding style)
+
+
+
 namespace ToyEngine
 {
 
@@ -77,7 +83,7 @@ public:
     template<typename ModuleType>
     ModuleType* GetModule()
     {
-        return GetModuleHelper<ModuleType>().GetModule(*this);
+        return _GetModuleHelper<ModuleType>().GetModule(*this);
     }
 
 

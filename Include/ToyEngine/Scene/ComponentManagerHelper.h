@@ -55,7 +55,7 @@ public:
         _DeleteComponent(component);
     }
 
-    virtual bool HasComponent(SceneObject so) override
+    virtual bool HasComponent(SceneObject so) const override
     {
         return m_Components.find(so) != m_Components.end();
     }

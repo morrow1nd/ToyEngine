@@ -52,6 +52,13 @@ public:
         return _GetComponentManagerHelper<ComponentType>().GetComponentManager(*this);
     }
 
+    template<typename ComponentType, typename ComponentManagerType>
+    ComponentManagerType* GetComponentManagerC()
+    {
+        return static_cast<ComponentManagerType*>(
+            _GetComponentManagerHelper<ComponentType>().GetComponentManager(*this));
+    }
+
     Scene* GetCurrScene()
     {
         return m_CurrScene;

@@ -1,10 +1,10 @@
 #pragma once
 
 #include "ToyUtility/Prerequisites/PreDefine.h"
+#include "TRL/RenderAPI.h"
 #include "ToyEngine/Engine/EngineModule.h"
-#include "ToyEngine/Scene/Components/CMeshFilter.h"
-#include "ToyEngine/Scene/Components/CMeshRenderer.h"
 #include "ToyEngine/Debug/Logger.h"
+#include "ToyEngine/Graphics/RenderBeast/RenderBeast.h"
 
 
 namespace ToyEngine
@@ -16,7 +16,9 @@ class RendererManager : public EngineModule
 public:
     RendererManager(EngineModuleId moduleId)
         :
-        EngineModule(moduleId, "RendererManager")
+        EngineModule(moduleId, "RendererManager"),
+        m_RenderAPI(),
+        m_RenderBeast(m_RenderAPI)
     {}
 
 
@@ -25,27 +27,30 @@ public:
     {
         EngineModule::StartUp();
 
+        m_RenderBeast.Init();
         TOY_LOG_INFO("RendererManager::StartUp");
     }
 
     virtual void ShutDown() override
     {
         TOY_LOG_INFO("RendererManager::ShutDown");
+        m_RenderBeast.DeInit();
         EngineModule::ShutDown();
-    }
-
-    virtual void Update(float deltaTime) override
-    {
-
     }
 
     virtual void PostUpdate(float deltaTime) override
     {
-
+        m_RenderBeast.Update(deltaTime);
     }
+
+public:
+    RenderAPI& GetRenderAPI() { return m_RenderAPI; }
 
 
 private:
+    TRL::RenderAPI m_RenderAPI;
+
+    RenderBeast m_RenderBeast;
 };
 
 

@@ -4,6 +4,7 @@ SET(TOY_ENGINE_SRC_ROOT
 )
 
 SET(TOY_ENGINE_INC_DEBUG
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Debug/Assert.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Debug/Logger.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Debug/DebugModule.h"
 )
@@ -54,6 +55,7 @@ set(TOY_ENGINE_SRC_SCENE_COMPONENTS
 )
 
 SET(TOY_ENGINE_INC_GRAPHICS
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/RenderBeast/RenderBeast.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Material.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/RendererManager.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Shader.h"
@@ -61,6 +63,7 @@ SET(TOY_ENGINE_INC_GRAPHICS
 )
 
 set(TOY_ENGINE_SRC_GRAPHICS
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/RenderBeast/RenderBeast.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Material.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/RendererManager.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Shader.cpp"

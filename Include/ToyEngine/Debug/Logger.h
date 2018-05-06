@@ -50,7 +50,7 @@ public:
     {
         for (auto i = m_Loggers.begin(), end = m_Loggers.end(); i != end; ++i)
         {
-            (*i).Trace(fmt, args);
+            (*i).Trace(fmt, arg1, args...);
         }
     }
 
@@ -68,7 +68,7 @@ public:
     {
         for (auto i = m_Loggers.begin(), end = m_Loggers.end(); i != end; ++i)
         {
-            (*i).Debug(fmt, args);
+            (*i).Debug(fmt, arg1, args...);
         }
     }
 
@@ -86,7 +86,7 @@ public:
     {
         for (auto i = m_Loggers.begin(), end = m_Loggers.end(); i != end; ++i)
         {
-            (*i).Info(fmt, args);
+            (*i).Info(fmt, arg1, args...);
         }
     }
 
@@ -104,7 +104,7 @@ public:
     {
         for (auto i = m_Loggers.begin(), end = m_Loggers.end(); i != end; ++i)
         {
-            (*i).Warn(fmt, args);
+            (*i).Warn(fmt, arg1, args...);
         }
     }
 
@@ -122,7 +122,7 @@ public:
     {
         for (auto i = m_Loggers.begin(), end = m_Loggers.end(); i != end; ++i)
         {
-            (*i).Error(fmt, args);
+            (*i).Error(fmt, arg1, args...);
         }
     }
 
@@ -140,7 +140,7 @@ public:
     {
         for (auto i = m_Loggers.begin(), end = m_Loggers.end(); i != end; ++i)
         {
-            (*i).Fatal(fmt, args);
+            (*i).Fatal(fmt, arg1, args...);
         }
     }
 
