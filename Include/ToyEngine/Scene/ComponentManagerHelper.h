@@ -10,8 +10,27 @@ namespace ToyEngine
 {
 
 
-#define USING_COMPONENT_MANAGER_HELPER(ComponentTypeName) \
+#define TE_USING_COMPONENT_MANAGER_HELPER(ComponentTypeName) \
 class ComponentTypeName##ComponentManager : public ComponentManagerHelper<ComponentTypeName> { }
+
+#define TE_ICOMPONENT_TO_DERIVED_WITH_CHECK(iterator, DerivedComponentName, VarName)                        \
+DerivedComponentName* VarName = nullptr;                                                                    \
+{                                                                                                           \
+    if(iterator->second == nullptr)                                                                         \
+    {                                                                                                       \
+        TOY_LOG_ERROR("Component(" #DerivedComponentName ") Manager contains a nullptr item. SO({}).",      \
+            iterator->first.GetId());                                                                       \
+    }                                                                                                       \
+    else                                                                                                    \
+    {                                                                                                       \
+        VarName = dynamic_cast<DerivedComponentName*>(iterator->second);                                    \
+        if (VarName == nullptr)                                                                             \
+        {                                                                                                   \
+            TOY_LOG_ERROR("dynamic_cast<" #DerivedComponentName "*>(iterator->second) == nullptr. SO({})",  \
+                iterator->first.GetId());                                                                   \
+        }                                                                                                   \
+    }                                                                                                       \
+}
 
 
 template<typename ComponentType>
@@ -60,6 +79,11 @@ public:
         return m_Components.find(so) != m_Components.end();
     }
 
+    virtual int GetComponentCount() const override
+    {
+        return m_Components.size();
+    }
+
 
 private:
     IComponent * _NewComponent()
@@ -76,8 +100,18 @@ private:
     }
 
 
+public:
+    // TODO: maybe we should use List<ComponentType> to contain components, and sorted by SceneObject's id.
+    using ContainerType = ToyUtility::UnorderedMap<SceneObject, IComponent*, SceneObjectHasher>;
+    
+
+public:
+    ContainerType::iterator GetIterator() { return m_Components.begin(); }
+    ContainerType::iterator GetIteratorEnd() { return m_Components.end(); }
+
+
 private:
-    ToyUtility::UnorderedMap<SceneObject, IComponent*, SceneObjectHasher> m_Components;
+    ContainerType m_Components;
 };
 
 

@@ -19,6 +19,8 @@ public:
     virtual IComponent& AddComponent(SceneObject so) = 0;
     virtual void DestoryComponent(SceneObject so) = 0;
     virtual bool HasComponent(SceneObject so) const = 0;
+
+    virtual int GetComponentCount() const = 0;
 };
 
 

@@ -36,6 +36,8 @@ SceneObject SceneManager::CreateSceneObject()
     m_Event.SetArg2(so.GetId());
     Engine::Instance().SendEvent(m_Event);
 
+    // TODO: attach it to root node?
+
     return so;
 }
 

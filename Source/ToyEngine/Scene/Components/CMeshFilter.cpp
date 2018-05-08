@@ -38,49 +38,49 @@ void CMeshFilter::Clear()
     m_SubMeshTriangleIndices.clear();
 }
 
-const CMeshFilter::ListOfVector3& CMeshFilter::SetVertices(ListOfVector3& newVertices)
+const CMeshFilter::ListOfVector3& CMeshFilter::SwapVertices(ListOfVector3& newVertices)
 {
     m_Vertices.swap(newVertices);
     return m_Vertices;
 }
 
-const CMeshFilter::ListOfVector3 & CMeshFilter::SetNormals(ListOfVector3 & newNormals)
+const CMeshFilter::ListOfVector3 & CMeshFilter::SwapNormals(ListOfVector3 & newNormals)
 {
     m_Normals.swap(newNormals);
     return m_Normals;
 }
 
-const CMeshFilter::ListOfVector3 & CMeshFilter::SetTangents(ListOfVector3 & newTangents)
+const CMeshFilter::ListOfVector3 & CMeshFilter::SwapTangents(ListOfVector3 & newTangents)
 {
     m_Tangents.swap(newTangents);
     return m_Tangents;
 }
 
-const CMeshFilter::ListOfVector3 & CMeshFilter::SetUVs(ListOfVector3 & newUVs)
+const CMeshFilter::ListOfVector3 & CMeshFilter::SwapUVs(ListOfVector3 & newUVs)
 {
     m_UVs.swap(newUVs);
     return m_UVs;
 }
 
-const CMeshFilter::ListOfVector3 & CMeshFilter::SetUVs2(ListOfVector3 & newUVs2)
+const CMeshFilter::ListOfVector3 & CMeshFilter::SwapUVs2(ListOfVector3 & newUVs2)
 {
     m_UVs2.swap(newUVs2);
     return m_UVs2;
 }
 
-const CMeshFilter::ListOfVector3 & CMeshFilter::SetUVs3(ListOfVector3 & newUVs3)
+const CMeshFilter::ListOfVector3 & CMeshFilter::SwapUVs3(ListOfVector3 & newUVs3)
 {
     m_UVs3.swap(newUVs3);
     return m_UVs3;
 }
 
-const CMeshFilter::ListOfVector3 & CMeshFilter::SetUVs4(ListOfVector3 & newUVs4)
+const CMeshFilter::ListOfVector3 & CMeshFilter::SwapUVs4(ListOfVector3 & newUVs4)
 {
     m_UVs4.swap(newUVs4);
     return m_UVs4;
 }
 
-const ToyUtility::List<ToyUtility::uint16>& CMeshFilter::SetAllTriangles(ToyUtility::List<ToyUtility::uint16>& newTriangles)
+const ToyUtility::List<ToyUtility::uint16>& CMeshFilter::SwapAllTriangles(ToyUtility::List<ToyUtility::uint16>& newTriangles)
 {
     m_Triangles.swap(newTriangles);
     return m_Triangles;

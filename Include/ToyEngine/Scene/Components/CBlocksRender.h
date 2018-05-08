@@ -19,7 +19,7 @@ private:
 };
 
 
-USING_COMPONENT_MANAGER_HELPER(CBlocksRender);
+TE_USING_COMPONENT_MANAGER_HELPER(CBlocksRender);
 
 
 } // end of namespace ToyEngine

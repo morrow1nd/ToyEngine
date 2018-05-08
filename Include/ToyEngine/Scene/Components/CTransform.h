@@ -151,7 +151,7 @@ private:
     bool m_ActiveHierarchy;
 };
 
-USING_COMPONENT_MANAGER_HELPER(CTransform);
+TE_USING_COMPONENT_MANAGER_HELPER(CTransform);
 
 
 } // end of namespace ToyEngine

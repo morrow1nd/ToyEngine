@@ -6,7 +6,11 @@
 #include "ToyUtility/Math/Vector2I.h"
 #include "ToyUtility/Math/Vector2.h"
 #include "ToyUtility/Math/Vector3.h"
-//#include "ToyUtility/Math/Ray.h"
+#include "ToyUtility/Math/TransformPRS.h"
+#include "ToyUtility/Math/Ray.h"
+#include "ToyUtility/Math/AABox.h"
+#include "ToyUtility/Math/Rect2I.h"
+#include "ToyUtility/Math/ConvexVolume.h"
 #include "ToyEngine/Scene/ComponentBase.h"
 #include "ToyEngine/Scene/ComponentManagerHelper.h"
 
@@ -22,11 +26,18 @@ using ToyUtility::Matrix4;
 using ToyUtility::Radian;
 using ToyUtility::int32;
 using ToyUtility::uint8;
+using ToyUtility::TransformPRS;
 
 
 class CCamera : public ComponentBase
 {
 public:
+    CCamera();
+
+
+public:
+    void SetTransform(const TransformPRS& transform);
+
     /**
     * Determines the camera horizontal field of view. This determines how wide the camera viewing angle is along the
     * horizontal axis. Vertical FOV is calculated from the horizontal FOV and the aspect ratio.
@@ -105,7 +116,16 @@ public:
     /** Returns the inverse of the view matrix. See getViewMatrix(). */
     const Matrix4& GetViewMatrixInv() const;
 
-    // ...
+    // ... CustomViewMatrix
+
+    /** Returns a convex volume representing the visible area of the camera, in local space. */
+    const ToyUtility::ConvexVolume& GetFrustum() const;
+
+    /** Returns a convex volume representing the visible area of the camera, in world space. */
+    ToyUtility::ConvexVolume GetWorldFrustum() const;
+
+    /**	Returns the bounding of the frustum. */
+    const ToyUtility::AABox& GetBoundingBox() const;
     
     /**	Projection type to use by the camera. */
     enum class ProjectionType
@@ -122,7 +142,7 @@ public:
     */
     void SetProjectionType(ProjectionType pt);
 
-    ProjectionType GetProjectionType() const;
+    ProjectionType GetProjectionType() const { return m_ProjType; }
 
     /**
     * Sets the orthographic window height, for use with orthographic rendering only.
@@ -152,7 +172,7 @@ public:
 
     float GetOrthoWindowWidth() const;
 
-    // ...
+    // ... Priority, Layer, MSAA, RenderSetting
 
     /**
     * Converts a point in world space to screen coordinates.
@@ -160,7 +180,7 @@ public:
     * @param[in]	worldPoint		3D point in world space.
     * @return						2D point on the render target attached to the camera's viewport, in pixels.
     */
-    Vector2I worldToScreenPoint(const Vector3& worldPoint) const;
+    Vector2I WorldToScreenPoint(const Vector3& worldPoint) const;
 
     /**
     * Converts a point in world space to normalized device coordinates.
@@ -168,7 +188,7 @@ public:
     * @param[in]	worldPoint		3D point in world space.
     * @return						2D point in normalized device coordinates ([-1, 1] range), relative to the camera's viewport.
     */
-    Vector2 worldToNdcPoint(const Vector3& worldPoint) const;
+    Vector2 WorldToNdcPoint(const Vector3& worldPoint) const;
 
     /**
     * Converts a point in world space to view space coordinates.
@@ -176,7 +196,7 @@ public:
     * @param[in]	worldPoint		3D point in world space.
     * @return						3D point relative to the camera's coordinate system.
     */
-    Vector3 worldToViewPoint(const Vector3& worldPoint) const;
+    Vector3 WorldToViewPoint(const Vector3& worldPoint) const;
 
     /**
     * Converts a point in screen space to a point in world space.
@@ -186,7 +206,7 @@ public:
     *							vector going from camera origin to the point on the near plane.
     * @return					3D point in world space.
     */
-    Vector3 screenToWorldPoint(const Vector2I& screenPoint, float depth = 0.5f) const;
+    Vector3 ScreenToWorldPoint(const Vector2I& screenPoint, float depth = 0.5f) const;
 
     /**
     * Converts a point in screen space (pixels corresponding to render target attached to the camera) to a point in
@@ -196,7 +216,7 @@ public:
     * @param[in]	deviceDepth	Depth to place the world point at, in normalized device coordinates.
     * @return					3D point in world space.
     */
-    Vector3 screenToWorldPointDeviceDepth(const Vector2I& screenPoint, float deviceDepth = 0.5f) const;
+    Vector3 ScreenToWorldPointDeviceDepth(const Vector2I& screenPoint, float deviceDepth = 0.5f) const;
 
     /**
     * Converts a point in screen space to a point in view space.
@@ -206,7 +226,7 @@ public:
     *							vector going from camera origin to the point on the near plane.
     * @return					3D point relative to the camera's coordinate system.
     */
-    Vector3 screenToViewPoint(const Vector2I& screenPoint, float depth = 0.5f) const;
+    Vector3 ScreenToViewPoint(const Vector2I& screenPoint, float depth = 0.5f) const;
 
     /**
     * Converts a point in screen space to normalized device coordinates.
@@ -215,7 +235,7 @@ public:
     * @return						2D point in normalized device coordinates ([-1, 1] range), relative to
     *								the camera's viewport.
     */
-    Vector2 screenToNdcPoint(const Vector2I& screenPoint) const;
+    Vector2 ScreenToNdcPoint(const Vector2I& screenPoint) const;
 
     /**
     * Converts a point in view space to world space.
@@ -223,7 +243,7 @@ public:
     * @param[in]	viewPoint		3D point relative to the camera's coordinate system.
     * @return						3D point in world space.
     */
-    Vector3 viewToWorldPoint(const Vector3& viewPoint) const;
+    Vector3 ViewToWorldPoint(const Vector3& viewPoint) const;
 
     /**
     * Converts a point in view space to screen space.
@@ -231,7 +251,7 @@ public:
     * @param[in]	viewPoint		3D point relative to the camera's coordinate system.
     * @return						2D point on the render target attached to the camera's viewport, in pixels.
     */
-    Vector2I viewToScreenPoint(const Vector3& viewPoint) const;
+    Vector2I ViewToScreenPoint(const Vector3& viewPoint) const;
 
     /**
     * Converts a point in view space to normalized device coordinates.
@@ -240,7 +260,7 @@ public:
     * @return						2D point in normalized device coordinates ([-1, 1] range), relative to
     *								the camera's viewport.
     */
-    Vector2 viewToNdcPoint(const Vector3& viewPoint) const;
+    Vector2 ViewToNdcPoint(const Vector3& viewPoint) const;
 
     /**
     * Converts a point in normalized device coordinates to world space.
@@ -251,7 +271,7 @@ public:
     *							vector going from camera origin to the point on the near plane.
     * @return					3D point in world space.
     */
-    Vector3 ndcToWorldPoint(const Vector2& ndcPoint, float depth = 0.5f) const;
+    Vector3 NdcToWorldPoint(const Vector2& ndcPoint, float depth = 0.5f) const;
 
     /**
     * Converts a point in normalized device coordinates to view space.
@@ -262,7 +282,7 @@ public:
     *							vector going from camera origin to the point on the near plane.
     * @return					3D point relative to the camera's coordinate system.
     */
-    Vector3 ndcToViewPoint(const Vector2& ndcPoint, float depth = 0.5f) const;
+    Vector3 NdcToViewPoint(const Vector2& ndcPoint, float depth = 0.5f) const;
 
     /**
     * Converts a point in normalized device coordinates to screen space.
@@ -271,7 +291,7 @@ public:
     *							the camera's viewport.
     * @return					2D point on the render target attached to the camera's viewport, in pixels.
     */
-    Vector2I ndcToScreenPoint(const Vector2& ndcPoint) const;
+    Vector2I NdcToScreenPoint(const Vector2& ndcPoint) const;
 
     /**
     * Converts a point in screen space to a ray in world space.
@@ -279,7 +299,7 @@ public:
     * @param[in]	screenPoint		2D point on the render target attached to the camera's viewport, in pixels.
     * @return						Ray in world space, originating at the selected point on the camera near plane.
     */
-    // TODO: Ray screenPointToRay(const Vector2I& screenPoint) const;
+    ToyUtility::Ray ScreenPointToRay(const Vector2I& screenPoint) const;
 
     /**
     * Projects a point in view space to normalized device coordinates. Similar to viewToNdcPoint() but preserves
@@ -289,7 +309,7 @@ public:
     * @return						3D point in normalized device coordinates ([-1, 1] range), relative to the
     *								camera's viewport. Z value range depends on active render API.
     */
-    Vector3 projectPoint(const Vector3& point) const;
+    Vector3 ProjectPoint(const Vector3& point) const;
 
     /**	Un-projects a point in normalized device space to view space.
     *
@@ -297,7 +317,7 @@ public:
     *								camera's viewport. Z value range depends on active render API.
     * @return						3D point relative to the camera's coordinate system.
     */
-    Vector3 unprojectPoint(const Vector3& point) const;
+    Vector3 UnprojectPoint(const Vector3& point) const;
 
     static const float INFINITE_FAR_PLANE_ADJUST; /**< Small constant used to reduce far plane projection to avoid inaccuracies. */
 
@@ -309,6 +329,9 @@ private:
     /**	Recalculate frustum if dirty. */
     void _UpdateFrustum() const;
 
+    /**	Recalculate frustum planes if dirty. */
+    void _UpdateFrustumPlanes() const;
+
     /**
     * Update view matrix from parent position/orientation.
     *
@@ -318,6 +341,9 @@ private:
 
     bool _IsFrustumOutOfDate() const;
     void _InvalidateFrustum() const;
+
+    // TODO
+    ToyUtility::Rect2I GetViewportRect() const { return ToyUtility::Rect2I(0, 0, 800, 600); }
 
 
 private:
@@ -346,15 +372,19 @@ private:
     mutable Matrix4 m_ProjMatrixInv;
     mutable Matrix4 m_ViewMatrixInv;
 
-    //mutable ConvexVolume mFrustum; /**< Main clipping planes describing cameras visible area. */
+    mutable ToyUtility::ConvexVolume m_Frustum; /**< Main clipping planes describing cameras visible area. */
     mutable bool m_RecalcFrustum : 1; /**< Should frustum be recalculated. */
     mutable bool m_RecalcFrustumPlanes : 1; /**< Should frustum planes be recalculated. */
     mutable bool m_RecalcView : 1; /**< Should view matrix be recalculated. */
     mutable float m_Left, m_Right, m_Top, m_Bottom; /**< Frustum extents. */
-    //mutable AABox mBoundingBox; /**< Frustum bounding box. */
+    mutable ToyUtility::AABox m_BoundingBox; /**< Frustum bounding box. */
+
+    // TODO: SceneActor
+    TransformPRS m_Transform;
+    bool m_Active;
 };
 
-USING_COMPONENT_MANAGER_HELPER(CCamera);
+TE_USING_COMPONENT_MANAGER_HELPER(CCamera);
 
 
 } // end of namespace ToyEngine

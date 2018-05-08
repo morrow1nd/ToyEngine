@@ -12,6 +12,7 @@ namespace ToyEngine
 class ComponentBase : public IComponent
 {
 public:
+    // TODO: maybe we should rename to SetSO
     virtual void Init(SceneObject so) override
     {
         m_SO = so;

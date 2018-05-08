@@ -12,6 +12,7 @@
 #include "ToyEngine/Scene/Components/CTransform.h"
 #include "ToyEngine/Scene/Components/CMeshFilter.h"
 #include "ToyEngine/Scene/Components/CMeshRenderer.h"
+#include "ToyEngine/Scene/Components/CCamera.h"
 
 
 namespace ToyEngine
@@ -114,6 +115,7 @@ private:
     TOY_ENGINE_COMPONENT_MANAGER_HELPER_SPECFIY(CTransform, m_CTransformComponentManager);
     TOY_ENGINE_COMPONENT_MANAGER_HELPER_SPECFIY(CMeshFilter, m_CMeshFilterComponentManager);
     TOY_ENGINE_COMPONENT_MANAGER_HELPER_SPECFIY(CMeshRenderer, m_MeshRendererComponentManager);
+    TOY_ENGINE_COMPONENT_MANAGER_HELPER_SPECFIY(CCamera, m_CameraComponentManager);
 
 
     // Template cache data
@@ -129,6 +131,7 @@ private:
     CTransformComponentManager m_CTransformComponentManager;
     CMeshFilterComponentManager m_CMeshFilterComponentManager;
     CMeshRendererComponentManager m_MeshRendererComponentManager;
+    CCameraComponentManager m_CameraComponentManager;
 };
 
 

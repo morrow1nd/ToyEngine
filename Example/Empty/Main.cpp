@@ -6,6 +6,7 @@
 #include <Windows.h>
 
 #include "ToyEngine/Engine/Engine.h"
+#include "ToyEngine/Debug/Logger.h"
 
 
 using namespace std;
@@ -14,7 +15,9 @@ using namespace std;
 int main()
 {
     ToyEngine::Engine::Instance().StartUp();
-    
+ 
+    TOY_LOG_ERROR("asuhsaus({})", 95796);
+
     while (true)
     {
         ToyEngine::Engine::Instance().Step(0.1f);

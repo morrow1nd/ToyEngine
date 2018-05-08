@@ -11,12 +11,18 @@ namespace ToyEngine
 {
 
 
-#define TOY_LOG_TRACE(fmt, ...)     ToyLogger::Instance().Trace(fmt, ##__VA_ARGS__)
-#define TOY_LOG_DEBUG(fmt, ...)     ToyLogger::Instance().Debug(fmt, ##__VA_ARGS__)
-#define TOY_LOG_INFO(fmt, ...)      ToyLogger::Instance().Info(fmt, ##__VA_ARGS__)
-#define TOY_LOG_WARN(fmt, ...)      ToyLogger::Instance().Warn(fmt, ##__VA_ARGS__)
-#define TOY_LOG_ERROR(fmt, ...)     ToyLogger::Instance().Error(fmt, ##__VA_ARGS__)
-#define TOY_LOG_FATAL(fmt, ...)     ToyLogger::Instance().Fatal(fmt, ##__VA_ARGS__)
+#define TOY_MACRO_TO_STRING(x) #x
+
+// For the reason: https://stackoverflow.com/a/19343239
+#define TOY_INNER_MACRO_TWICE(x) TOY_MACRO_TO_STRING(x)
+
+
+#define TOY_LOG_TRACE(fmt, ...)     ToyEngine::ToyLogger::Instance().Trace(__FILE__ ":" __FUNCTION__ ":L" TOY_INNER_MACRO_TWICE(__LINE__) ": " fmt, ##__VA_ARGS__)
+#define TOY_LOG_DEBUG(fmt, ...)     ToyEngine::ToyLogger::Instance().Debug(__FILE__ ":" __FUNCTION__ ":L" TOY_INNER_MACRO_TWICE(__LINE__) ": " fmt, ##__VA_ARGS__)
+#define TOY_LOG_INFO(fmt, ...)      ToyEngine::ToyLogger::Instance().Info(__FILE__ ":" __FUNCTION__ ":L" TOY_INNER_MACRO_TWICE(__LINE__) ": " fmt, ##__VA_ARGS__)
+#define TOY_LOG_WARN(fmt, ...)      ToyEngine::ToyLogger::Instance().Warn(__FILE__ ":" __FUNCTION__ ":L" TOY_INNER_MACRO_TWICE(__LINE__) ": " fmt, ##__VA_ARGS__)
+#define TOY_LOG_ERROR(fmt, ...)     ToyEngine::ToyLogger::Instance().Error(__FILE__ ":" __FUNCTION__ ":L" TOY_INNER_MACRO_TWICE(__LINE__) ": " fmt, ##__VA_ARGS__)
+#define TOY_LOG_FATAL(fmt, ...)     ToyEngine::ToyLogger::Instance().Fatal(__FILE__ ":" __FUNCTION__ ":L" TOY_INNER_MACRO_TWICE(__LINE__) ": " fmt, ##__VA_ARGS__)
 
 
 class ToyLogger : public ToyUtility::ISingleton<ToyLogger>

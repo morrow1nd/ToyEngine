@@ -46,15 +46,20 @@ public:
 
     void PushVertices(const ListOfVector3& vertices);
 
-    // Swap the contents of m_Vertices and newVertices, and return m_Vertices
-    const ListOfVector3& SetVertices(ListOfVector3& newVertices);
-    const ListOfVector3& SetNormals(ListOfVector3& newNormals);
-    const ListOfVector3& SetTangents(ListOfVector3& newTangents);
-    const ListOfVector3& SetUVs(ListOfVector3& newUVs);
-    const ListOfVector3& SetUVs2(ListOfVector3& newUVs2);
-    const ListOfVector3& SetUVs3(ListOfVector3& newUVs3);
-    const ListOfVector3& SetUVs4(ListOfVector3& newUVs4);
-    const ToyUtility::List<ToyUtility::uint16>& SetAllTriangles(ToyUtility::List<ToyUtility::uint16>& newTriangles);
+    // Swap contents: swap the contents of m_Vertices and newVertices, and return m_Vertices
+    const ListOfVector3& SwapVertices(ListOfVector3& newVertices);
+    const ListOfVector3& SwapNormals(ListOfVector3& newNormals);
+    const ListOfVector3& SwapTangents(ListOfVector3& newTangents);
+    const ListOfVector3& SwapUVs(ListOfVector3& newUVs);
+    const ListOfVector3& SwapUVs2(ListOfVector3& newUVs2);
+    const ListOfVector3& SwapUVs3(ListOfVector3& newUVs3);
+    const ListOfVector3& SwapUVs4(ListOfVector3& newUVs4);
+    const ToyUtility::List<ToyUtility::uint16>& SwapAllTriangles(
+        ToyUtility::List<ToyUtility::uint16>& newTriangles);
+
+    // Copy contents
+    void SetVertices(const ListOfVector3& newVertices) { m_Vertices = newVertices; }
+    // ......
 
     void PushSubMesh(const ToyUtility::List<ToyUtility::uint16>& triangles);
 
@@ -72,7 +77,7 @@ private:
     ToyUtility::List<int> m_SubMeshTriangleIndices;
 };
 
-USING_COMPONENT_MANAGER_HELPER(CMeshFilter);
+TE_USING_COMPONENT_MANAGER_HELPER(CMeshFilter);
 
 
 } // end of namespace ToyEngine
