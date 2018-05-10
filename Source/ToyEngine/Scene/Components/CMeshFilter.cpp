@@ -98,5 +98,13 @@ void CMeshFilter::PushSubMesh(const ToyUtility::List<ToyUtility::uint16>& triang
     }
 }
 
+void CMeshFilter::Serialize(ToyUtility::Serializer & serializer) const
+{
+}
+
+void CMeshFilter::UnSerialize(ToyUtility::Serializer & serializer)
+{
+}
+
 
 } // end of namespace ToyEngine

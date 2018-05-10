@@ -319,5 +319,44 @@ void CTransform::_UpdateLocalTrfm() const
     // TODO: Set Dirty flag
 }
 
+void CTransform::Serialize(ToyUtility::Serializer & serializer) const
+{
+    serializer.BeginDictionary("Transform");
+    {
+        serializer.Push(SO().GetId(), "Id");
+
+        m_LocalTrfm.Serialize(serializer);
+
+        ToyUtility::uint32 parentId = 0;
+        if (m_Parent != nullptr)
+        {
+            parentId = m_Parent->SO().GetId();
+        }
+        serializer.Push(parentId, "parent");
+
+        serializer.BeginDictionary("children");
+        {
+            ToyUtility::uint32 id = 0;
+            for (int i = 0; i < m_Children.size(); ++i)
+            {
+                //if (m_Children[i] != nullptr)
+                //{
+                    serializer.Push(m_Children[i]->SO().GetId());
+                //}
+            }
+        }
+        serializer.EndDictionary();
+
+        serializer.Push(m_ActiveSelf, "activeSelf");
+        serializer.Push(m_ActiveHierarchy, "activeHierarchy");
+    }
+    serializer.EndDictionary();
+}
+
+void CTransform::UnSerialize(ToyUtility::Serializer & serializer)
+{
+    // TODOH
+}
+
 
 } // end of namespace ToyEngine

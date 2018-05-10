@@ -11,19 +11,30 @@ namespace ToyEngine
 class SceneObject
 {
 public:
+    static SceneObject Null;
+
+
+public:
     typedef ToyUtility::uint32 IdType;
 
     SceneObject()
-        : m_Id(0)
+        :
+        m_Id(Null.GetId())
     {}
 
     SceneObject(SceneObject::IdType id)
-        : m_Id(id)
+        :
+        m_Id(id)
     {}
 
     bool operator==(const SceneObject& rh) const
     {
         return this->m_Id == rh.m_Id;
+    }
+
+    bool operator!=(const SceneObject& rh) const
+    {
+        return this->m_Id != rh.m_Id;
     }
 
     ToyUtility::uint32 GetId() const { return m_Id; }

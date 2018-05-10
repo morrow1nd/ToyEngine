@@ -64,6 +64,12 @@ public:
     void PushSubMesh(const ToyUtility::List<ToyUtility::uint16>& triangles);
 
 
+    // Serializable
+public:
+    virtual void Serialize(ToyUtility::Serializer& serializer) const override;
+    virtual void UnSerialize(ToyUtility::Serializer& serializer) override;
+
+
 private:
     ListOfVector3 m_Vertices;
     ListOfVector3 m_Normals;

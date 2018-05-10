@@ -29,6 +29,9 @@ public:
         m_SceneObjects.erase(so);
     }
 
+    const ToyUtility::UnorderedSet<SceneObject, SceneObjectHasher>& GetSceneObjects() const
+    { return m_SceneObjects; }
+
     
 private:
     ToyUtility::UnorderedSet<SceneObject, SceneObjectHasher> m_SceneObjects;

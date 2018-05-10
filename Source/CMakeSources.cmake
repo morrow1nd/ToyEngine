@@ -15,6 +15,7 @@ SET(TOY_ENGINE_INC_ENGINE
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Engine/Engine.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Engine/EngineEventId.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Engine/EngineModule.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Engine/EngineParam.h"
 )
 SET(TOY_ENGINE_SRC_ENGINE
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Engine/Engine.cpp"
@@ -42,8 +43,10 @@ set(TOY_ENGINE_INC_SCENE_COMPONENTS
 )
 
 set(TOY_ENGINE_SRC_SCENE
-	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Scene/SceneManager.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Scene/ComponentManagerHelper.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Scene/Scene.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Scene/SceneManager.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Scene/SceneObject.cpp"
 )
 set(TOY_ENGINE_SRC_SCENE_COMPONENTS
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Scene/Components/CBlocks.cpp"

@@ -1,0 +1,29 @@
+#include "ToyEngine/Scene/Scene.h"
+#include "ToyUtility/Event/Event.h"
+#include "ToyEngine/Engine/EngineEventId.h"
+#include "ToyEngine/Engine/Engine.h"
+
+
+namespace ToyEngine
+{
+
+void Scene::AttachChild(SceneObject so)
+{
+    m_Children.push_back(so);
+}
+
+void Scene::Serialize(ToyUtility::Serializer& serializer) const
+{
+    ToyUtility::Event event;
+    event.SetId(ToyEngineEventId::Scene_Serialize);
+    event.SetArg4(&serializer);
+    Engine::Instance().SendEvent(event);
+}
+
+void Scene::UnSerialize(ToyUtility::Serializer & serializer)
+{
+
+}
+
+
+} // end of namespace ToyEngine

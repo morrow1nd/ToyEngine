@@ -635,4 +635,12 @@ void CCamera::_InvalidateFrustum() const
     m_RecalcFrustumPlanes = true;
 }
 
+void CCamera::Serialize(ToyUtility::Serializer & serializer) const
+{
+}
+
+void CCamera::UnSerialize(ToyUtility::Serializer & serializer)
+{
+}
+
 } // end of namespace ToyEngine

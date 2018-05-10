@@ -13,7 +13,7 @@ namespace ToyEngine
 using EngineModuleId = ToyUtility::uint16;
 
 
-class EngineModule : public ToyUtility::IModule, ToyUtility::EventListener
+class EngineModule : public ToyUtility::IModule, public ToyUtility::EventListener
 {
 public:
     EngineModule() = delete;

@@ -14,6 +14,12 @@ class CBlocks : public ComponentBase
 public:
 
 
+    // Serializable
+public:
+    virtual void Serialize(ToyUtility::Serializer& serializer) const override{ }
+    virtual void UnSerialize(ToyUtility::Serializer& serializer) override{ }
+
+
 private:
 
 };

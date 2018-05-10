@@ -6,6 +6,7 @@
 #include "ToyUtility/Container/List.h"
 #include "ToyUtility/Math/Matrix4.h"
 #include "ToyUtility/Math/TransformPRS.h"
+#include "ToyUtility/Serialization/Serializer.h"
 #include "ToyEngine/Scene/ComponentBase.h"
 #include "ToyEngine/Scene/ComponentManagerHelper.h"
 
@@ -142,6 +143,14 @@ public:
 private:
     void _RemoveChild(CTransform& object);
     void _AddChild(CTransform& object);
+
+
+    // Serializable
+public:
+
+    virtual void Serialize(ToyUtility::Serializer& serializer) const override;
+    virtual void UnSerialize(ToyUtility::Serializer& serializer) override;
+
 
 
 private:

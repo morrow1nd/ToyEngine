@@ -3,6 +3,7 @@
 #include "ToyUtility/Prerequisites/PreDefine.h"
 #include "ToyUtility/DesignPattern/ISingleton.h"
 #include "ToyUtility/Event/EventHub.h"
+#include "ToyEngine/Engine/EngineParam.h"
 
 // Modules
 #include "ToyEngine/Scene/SceneManager.h"
@@ -43,12 +44,19 @@ public:
 
 
 public:
-    void StartUp()
+    void StartUp(const EngineParam& startUpParam)
     {
+        m_StartUpParam = startUpParam;
+
         // This sequence is very important
         m_Modules.push_back(&m_DebugModule);
         m_Modules.push_back(&m_SceneManager);
         m_Modules.push_back(&m_RendererManager);
+
+        for (auto i = m_Modules.begin(), end = m_Modules.end(); i != end; ++i)
+        {
+            RegisterListener(*i);
+        }
 
         for (auto i = m_Modules.begin(), end = m_Modules.end(); i != end; ++i)
         {
@@ -86,6 +94,8 @@ public:
         return _GetModuleHelper<ModuleType>().GetModule(*this);
     }
 
+    const EngineParam& GetStartUpParam() const { return m_StartUpParam; }
+
 
     // Module Getter
 private:
@@ -110,6 +120,7 @@ private:
     SceneManager m_SceneManager;
     RendererManager m_RendererManager;
     ToyUtility::List<EngineModule*> m_Modules;
+    EngineParam m_StartUpParam;
 };
 
 

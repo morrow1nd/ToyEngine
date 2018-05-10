@@ -36,6 +36,12 @@ public:
     }
 
 
+    // Serializable
+public:
+    virtual void Serialize(ToyUtility::Serializer& serializer) const override;
+    virtual void UnSerialize(ToyUtility::Serializer& serializer) override;
+
+
 private:
     ToyUtility::List<ToyUtility::SPtr<Material>> m_Mats;
 };

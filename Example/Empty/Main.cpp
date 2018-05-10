@@ -14,7 +14,8 @@ using namespace std;
 
 int main()
 {
-    ToyEngine::Engine::Instance().StartUp();
+    ToyEngine::EngineParam param;
+    ToyEngine::Engine::Instance().StartUp(param);
  
     TOY_LOG_ERROR("asuhsaus({})", 95796);
 

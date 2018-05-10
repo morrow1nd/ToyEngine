@@ -19,7 +19,7 @@ namespace ToyEngine
 {
 
 
-#define TOY_ENGINE_COMPONENT_MANAGER_HELPER_SPECFIY(ComponentType, ComponentManagerMemberName)  \
+#define TOY_GET_COMPONENT_MANAGER_HELPER_SPECFIY(ComponentType, ComponentManagerMemberName)     \
 template<>                                                                                      \
 struct _GetComponentManagerHelper<ComponentType>                                                \
 {                                                                                               \
@@ -70,7 +70,7 @@ public:
         return m_CurrScene;
     }
 
-    SceneObject CreateSceneObject();
+    SceneObject CreateSceneObject(SceneObject parent = SceneObject::Null);
 
     void DestorySceneObject(SceneObject so);
 
@@ -112,10 +112,20 @@ private:
         }
     };
 
-    TOY_ENGINE_COMPONENT_MANAGER_HELPER_SPECFIY(CTransform, m_CTransformComponentManager);
-    TOY_ENGINE_COMPONENT_MANAGER_HELPER_SPECFIY(CMeshFilter, m_CMeshFilterComponentManager);
-    TOY_ENGINE_COMPONENT_MANAGER_HELPER_SPECFIY(CMeshRenderer, m_MeshRendererComponentManager);
-    TOY_ENGINE_COMPONENT_MANAGER_HELPER_SPECFIY(CCamera, m_CameraComponentManager);
+    TOY_GET_COMPONENT_MANAGER_HELPER_SPECFIY(CTransform, m_CTransformComponentManager);
+    TOY_GET_COMPONENT_MANAGER_HELPER_SPECFIY(CMeshFilter, m_CMeshFilterComponentManager);
+    TOY_GET_COMPONENT_MANAGER_HELPER_SPECFIY(CMeshRenderer, m_MeshRendererComponentManager);
+    TOY_GET_COMPONENT_MANAGER_HELPER_SPECFIY(CCamera, m_CameraComponentManager);
+
+    CTransformComponentManager m_CTransformComponentManager;
+    CMeshFilterComponentManager m_CMeshFilterComponentManager;
+    CMeshRendererComponentManager m_MeshRendererComponentManager;
+    CCameraComponentManager m_CameraComponentManager;
+
+
+private:
+    void _SceneSerializeHandler(ToyUtility::Event& e);
+
 
 
     // Template cache data
@@ -127,11 +137,6 @@ private:
     Scene* m_CurrScene;
 
     SceneObjectManager m_SceneObjectManager;
-
-    CTransformComponentManager m_CTransformComponentManager;
-    CMeshFilterComponentManager m_CMeshFilterComponentManager;
-    CMeshRendererComponentManager m_MeshRendererComponentManager;
-    CCameraComponentManager m_CameraComponentManager;
 };
 
 
