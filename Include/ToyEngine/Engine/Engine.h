@@ -6,9 +6,10 @@
 #include "ToyEngine/Engine/EngineParam.h"
 
 // Modules
+#include "ToyEngine/Debug/DebugModule.h"
+#include "ToyEngine/Resource/ResourceManager.h"
 #include "ToyEngine/Scene/SceneManager.h"
 #include "ToyEngine/Graphics/RendererManager.h"
-#include "ToyEngine/Debug/DebugModule.h"
 
 
 // TODO List:
@@ -38,8 +39,9 @@ public:
     Engine()
         :
         m_DebugModule(1),
-        m_SceneManager(2),
-        m_RendererManager(3)
+        m_ResourceManager(2),
+        m_SceneManager(3),
+        m_RendererManager(4)
     {}
 
 
@@ -50,6 +52,7 @@ public:
 
         // This sequence is very important
         m_Modules.push_back(&m_DebugModule);
+        m_Modules.push_back(&m_ResourceManager);
         m_Modules.push_back(&m_SceneManager);
         m_Modules.push_back(&m_RendererManager);
 
@@ -117,8 +120,10 @@ private:
 
 private:
     DebugModule m_DebugModule;
+    ResourceManager m_ResourceManager;
     SceneManager m_SceneManager;
     RendererManager m_RendererManager;
+
     ToyUtility::List<EngineModule*> m_Modules;
     EngineParam m_StartUpParam;
 };

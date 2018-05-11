@@ -15,7 +15,10 @@ void SceneManager::StartUp()
     auto& param = Engine::Instance().GetStartUpParam();
     // TODO: load scene from param.StartUpScenePath
 
-    RegisterEvent((ToyUtility::EventId)ToyEngineEventId::Scene_Serialize, std::bind(&SceneManager::_SceneSerializeHandler, this, std::placeholders::_1));
+    RegisterEvent((ToyUtility::EventId)ToyEngineEventId::Scene_Serialize,
+        std::bind(&SceneManager::_SceneSerializeHandler, this, std::placeholders::_1));
+    RegisterEvent((ToyUtility::EventId)ToyEngineEventId::Scene_UnSerialize,
+        std::bind(&SceneManager::_SceneUnSerializeHandler, this, std::placeholders::_1));
 
     m_CurrScene = new Scene();
 }
@@ -35,7 +38,7 @@ SceneObject SceneManager::CreateSceneObject(SceneObject parent)
     auto so = m_SceneObjectManager.CreateSceneObject();
 
     // Every SceneObject has a CTransform component
-    auto& soTfm = static_cast<CTransform&>(m_CTransformComponentManager.AddComponent(so));
+    auto& soTfm = static_cast<CTransform&>(m_TransformComponentManager.AddComponent(so));
 
     if (parent == SceneObject::Null)
     {
@@ -47,23 +50,36 @@ SceneObject SceneManager::CreateSceneObject(SceneObject parent)
         soTfm.SetParent(parentTfm);
     }
 
-    m_Event.SetId(ToyEngineEventId::Scene_CreateSO);
-    m_Event.SetArg2(so.GetId());
-    Engine::Instance().SendEvent(m_Event);
+    m_TemEvent.SetId(ToyEngineEventId::Scene_CreateSO);
+    m_TemEvent.SetArg2(so.GetId());
+    Engine::Instance().SendEvent(m_TemEvent);
 
     return so;
 }
 
 void SceneManager::DestorySceneObject(SceneObject so)
 {
-    m_Event.SetId(ToyEngineEventId::Scene_DestorySO);
-    m_Event.SetArg2(so.GetId());
-    Engine::Instance().SendEvent(m_Event);
+    m_TemEvent.SetId(ToyEngineEventId::Scene_DestorySO);
+    m_TemEvent.SetArg2(so.GetId());
+    Engine::Instance().SendEvent(m_TemEvent);
 
-    m_CTransformComponentManager.DestoryComponent(so);
+    m_TransformComponentManager.DestoryComponent(so);
 
     m_SceneObjectManager.DestorySceneObject(so);
 }
+
+#define TOY_SCENE_SERIALIZER_COMPONENTS_HELPER(ComponentName, ComponentManagerMember) \
+serializer.BeginDictionary(#ComponentName "_List"); \
+{ \
+    auto i = ComponentManagerMember.GetIterator(); \
+    auto end = ComponentManagerMember.GetIteratorEnd(); \
+    for (; i != end; ++i) \
+    { \
+        const ComponentName* component = static_cast<const ComponentName*>(i->second); \
+        component->Serialize(serializer); \
+    } \
+} \
+serializer.EndDictionary();
 
 void SceneManager::_SceneSerializeHandler(ToyUtility::Event & e)
 {
@@ -78,19 +94,18 @@ void SceneManager::_SceneSerializeHandler(ToyUtility::Event & e)
             }
         }
         serializer.EndDictionary();
-        serializer.BeginDictionary("Transform_List");
-        {
-            auto i = m_CTransformComponentManager.GetIterator();
-            auto end = m_CTransformComponentManager.GetIteratorEnd();
-            for (; i != end; ++i)
-            {
-                const CTransform* cfm = static_cast<const CTransform*>(i->second);
-                cfm->Serialize(serializer);
-            }
-        }
-        serializer.EndDictionary();
+        TOY_SCENE_SERIALIZER_COMPONENTS_HELPER(CTransform, m_TransformComponentManager);
+        TOY_SCENE_SERIALIZER_COMPONENTS_HELPER(CMeshFilter, m_MeshFilterComponentManager);
+        TOY_SCENE_SERIALIZER_COMPONENTS_HELPER(CMeshRenderer, m_MeshRendererComponentManager);
+        TOY_SCENE_SERIALIZER_COMPONENTS_HELPER(CCamera, m_CameraComponentManager);
     }
     serializer.EndDictionary();
+}
+
+void SceneManager::_SceneUnSerializeHandler(ToyUtility::Event & e)
+{
+    ToyUtility::Serializer& serializer = e.GetArg4<ToyUtility::Serializer>();
+    
 }
 
 

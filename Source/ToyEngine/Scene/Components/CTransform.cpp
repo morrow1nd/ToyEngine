@@ -1,4 +1,6 @@
 #include "ToyEngine/Scene/Components/CTransform.h"
+#include "ToyUtility/Serialization/Serializer.h"
+#include "ToyUtility/Serialization/Unserializer.h"
 #include "ToyEngineConfig.h"
 #include "ToyEngine/Debug/Logger.h"
 
@@ -336,7 +338,8 @@ void CTransform::Serialize(ToyUtility::Serializer & serializer) const
 
         serializer.BeginDictionary("children");
         {
-            ToyUtility::uint32 id = 0;
+            serializer.Push((ToyUtility::uint32)m_Children.size(), "size");
+
             for (int i = 0; i < m_Children.size(); ++i)
             {
                 //if (m_Children[i] != nullptr)
@@ -353,9 +356,35 @@ void CTransform::Serialize(ToyUtility::Serializer & serializer) const
     serializer.EndDictionary();
 }
 
-void CTransform::UnSerialize(ToyUtility::Serializer & serializer)
+void CTransform::Unserialize(ToyUtility::Unserializer & unserializer)
 {
-    // TODOH
+    unserializer.BeginDictionary("Transform");
+    {
+        SceneObject::IdType id;
+        unserializer.Pop("Id", id); // We don't use it here
+
+        m_LocalTrfm.Unserialize(unserializer);
+
+        SceneObject::IdType parentId = 0;
+        unserializer.Pop("parent", parentId); // We don't use it here
+
+        unserializer.BeginDictionary("children");
+        {
+            ToyUtility::uint32 childrenSize = 0;
+            unserializer.Pop("size", childrenSize);
+
+            ToyUtility::uint32 id = 0;
+            for (int i = 0; i < childrenSize; ++i)
+            {
+                unserializer.Pop("", id); // We don't use it here
+            }
+        }
+        unserializer.EndDictionary();
+
+        unserializer.Pop("activeSelf", m_ActiveSelf);
+        unserializer.Pop("activeHierarchy", m_ActiveHierarchy);
+    }
+    unserializer.EndDictionary();
 }
 
 

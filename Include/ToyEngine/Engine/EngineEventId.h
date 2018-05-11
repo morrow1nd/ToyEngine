@@ -16,6 +16,7 @@ enum class ToyEngineEventId
     Scene_CreateSO,
     Scene_DestorySO,
     Scene_Serialize,
+    Scene_UnSerialize,
 
     End,
 };

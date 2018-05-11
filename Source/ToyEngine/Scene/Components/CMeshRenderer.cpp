@@ -6,13 +6,13 @@ namespace ToyEngine
 {
 
 
-
 void CMeshRenderer::Serialize(ToyUtility::Serializer & serializer) const
 {
 }
 
-void CMeshRenderer::UnSerialize(ToyUtility::Serializer & serializer)
+void CMeshRenderer::Unserialize(ToyUtility::Serializer & serializer)
 {
 }
+
 
 } // end of namespace ToyEngine

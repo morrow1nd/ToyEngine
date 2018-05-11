@@ -635,11 +635,23 @@ void CCamera::_InvalidateFrustum() const
     m_RecalcFrustumPlanes = true;
 }
 
-void CCamera::Serialize(ToyUtility::Serializer & serializer) const
+void CCamera::Serialize(ToyUtility::Serializer& serializer) const
 {
+    serializer.BeginDictionary("Camera");
+    {
+        serializer.Push((int32)m_ProjType, "ProjectionType");
+        serializer.Push(m_HorzFOV.ValueDegrees(), "HorzFov");
+        serializer.Push(m_FarDist, "FarDist");
+        serializer.Push(m_NearDist, "NearDist");
+        serializer.Push(m_Aspect, "Aspect");
+        serializer.Push(m_OrthoHeight, "OrthoHeight");
+        serializer.Push(m_Priority, "Priority");
+        serializer.Push(m_Active, "Active");
+    }
+    serializer.EndDictionary();
 }
 
-void CCamera::UnSerialize(ToyUtility::Serializer & serializer)
+void CCamera::Unserialize(ToyUtility::Serializer& serializer)
 {
 }
 

@@ -112,25 +112,25 @@ private:
         }
     };
 
-    TOY_GET_COMPONENT_MANAGER_HELPER_SPECFIY(CTransform, m_CTransformComponentManager);
-    TOY_GET_COMPONENT_MANAGER_HELPER_SPECFIY(CMeshFilter, m_CMeshFilterComponentManager);
+    TOY_GET_COMPONENT_MANAGER_HELPER_SPECFIY(CTransform, m_TransformComponentManager);
+    TOY_GET_COMPONENT_MANAGER_HELPER_SPECFIY(CMeshFilter, m_MeshFilterComponentManager);
     TOY_GET_COMPONENT_MANAGER_HELPER_SPECFIY(CMeshRenderer, m_MeshRendererComponentManager);
     TOY_GET_COMPONENT_MANAGER_HELPER_SPECFIY(CCamera, m_CameraComponentManager);
 
-    CTransformComponentManager m_CTransformComponentManager;
-    CMeshFilterComponentManager m_CMeshFilterComponentManager;
+    CTransformComponentManager m_TransformComponentManager;
+    CMeshFilterComponentManager m_MeshFilterComponentManager;
     CMeshRendererComponentManager m_MeshRendererComponentManager;
     CCameraComponentManager m_CameraComponentManager;
 
 
 private:
     void _SceneSerializeHandler(ToyUtility::Event& e);
-
+    void _SceneUnSerializeHandler(ToyUtility::Event& e);
 
 
     // Template cache data
 private:
-    ToyUtility::Event m_Event;
+    ToyUtility::Event m_TemEvent;
 
 
 private:

@@ -21,6 +21,29 @@ SET(TOY_ENGINE_SRC_ENGINE
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Engine/Engine.cpp"
 )
 
+SET(TOY_ENGINE_INC_GRAPHICS
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/RenderBeast/RenderBeast.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Material.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/RendererManager.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Shader.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Texture2D.h"
+)
+
+set(TOY_ENGINE_SRC_GRAPHICS
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/RenderBeast/RenderBeast.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Material.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/RendererManager.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Shader.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Texture2D.cpp"
+)
+
+SET(TOY_ENGINE_INC_RESOURCE
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/Resource.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/ResourceManager.h"
+)
+
+set(TOY_ENGINE_SRC_RESOURCE
+)
 
 SET(TOY_ENGINE_INC_SCENE
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Scene/ComponentBase.h"
@@ -57,22 +80,6 @@ set(TOY_ENGINE_SRC_SCENE_COMPONENTS
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Scene/Components/CCamera.cpp"
 )
 
-SET(TOY_ENGINE_INC_GRAPHICS
-	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/RenderBeast/RenderBeast.h"
-	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Material.h"
-	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/RendererManager.h"
-	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Shader.h"
-	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Graphics/Texture2D.h"
-)
-
-set(TOY_ENGINE_SRC_GRAPHICS
-	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/RenderBeast/RenderBeast.cpp"
-	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Material.cpp"
-	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/RendererManager.cpp"
-	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Shader.cpp"
-	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Graphics/Texture2D.cpp"
-)
-
 
 # if(MSVC)
 #   list(APPEND BS_BANSHEECORE_INC_PLATFORM VSVisualizations.natvis)
@@ -100,12 +107,14 @@ source_group("Header Files\\Debug"						FILES ${TOY_ENGINE_INC_DEBUG})
 source_group("Source Files\\Debug"						FILES ${TOY_ENGINE_SRC_DEBUG})
 source_group("Header Files\\Engine"						FILES ${TOY_ENGINE_INC_ENGINE})
 source_group("Source Files\\Engine"						FILES ${TOY_ENGINE_SRC_ENGINE})
+source_group("Header Files\\Graphics"					FILES ${TOY_ENGINE_INC_GRAPHICS})
+source_group("Source Files\\Graphics"					FILES ${TOY_ENGINE_SRC_GRAPHICS})
+source_group("Header Files\\Resource"					FILES ${TOY_ENGINE_INC_RESOURCE})
+source_group("Source Files\\Resource"					FILES ${TOY_ENGINE_SRC_RESOURCE})
 source_group("Header Files\\Scene"						FILES ${TOY_ENGINE_INC_SCENE})
 source_group("Source Files\\Scene"						FILES ${TOY_ENGINE_SRC_SCENE})
 source_group("Header Files\\Scene\\Components"			FILES ${TOY_ENGINE_INC_SCENE_COMPONENTS})
 source_group("Source Files\\Scene\\Components"			FILES ${TOY_ENGINE_SRC_SCENE_COMPONENTS})
-source_group("Header Files\\Graphics"					FILES ${TOY_ENGINE_INC_GRAPHICS})
-source_group("Source Files\\Graphics"					FILES ${TOY_ENGINE_SRC_GRAPHICS})
 
 
 set(TOY_ENGINE_SRC
@@ -125,4 +134,6 @@ set(TOY_ENGINE_SRC
 	${TOY_ENGINE_SRC_SCENE_COMPONENTS}
 	${TOY_ENGINE_INC_GRAPHICS}
 	${TOY_ENGINE_SRC_GRAPHICS}
+	${TOY_ENGINE_INC_RESOURCE}
+	${TOY_ENGINE_SRC_RESOURCE}
 )
