@@ -20,7 +20,7 @@ void Scene::Serialize(ToyUtility::Serializer& serializer) const
     Engine::Instance().SendEvent(event);
 }
 
-void Scene::Unserialize(ToyUtility::Serializer & serializer)
+void Scene::Unserialize(ToyUtility::Unserializer & serializer)
 {
     ToyUtility::Event event;
     event.SetId(ToyEngineEventId::Scene_UnSerialize);

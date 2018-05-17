@@ -1,5 +1,7 @@
 #include "ToyEngine/Scene/Components/CCamera.h"
 
+#include "ToyUtility/Serialization/Serializer.h"
+#include "ToyUtility/Serialization/Unserializer.h"
 #include "ToyUtility/Math/Vector3.h"
 #include "ToyUtility/Math/Vector4.h"
 #include "ToyUtility/Math/Rect2I.h"
@@ -651,7 +653,7 @@ void CCamera::Serialize(ToyUtility::Serializer& serializer) const
     serializer.EndDictionary();
 }
 
-void CCamera::Unserialize(ToyUtility::Serializer& serializer)
+void CCamera::Unserialize(ToyUtility::Unserializer& serializer)
 {
 }
 

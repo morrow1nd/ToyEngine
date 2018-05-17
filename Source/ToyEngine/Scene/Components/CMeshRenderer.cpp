@@ -10,7 +10,7 @@ void CMeshRenderer::Serialize(ToyUtility::Serializer & serializer) const
 {
 }
 
-void CMeshRenderer::Unserialize(ToyUtility::Serializer & serializer)
+void CMeshRenderer::Unserialize(ToyUtility::Unserializer & serializer)
 {
 }
 

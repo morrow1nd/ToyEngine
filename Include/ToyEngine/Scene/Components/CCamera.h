@@ -349,7 +349,7 @@ private:
     // Serializable
 public:
     virtual void Serialize(ToyUtility::Serializer& serializer) const override;
-    virtual void Unserialize(ToyUtility::Serializer& serializer) override;
+    virtual void Unserialize(ToyUtility::Unserializer& serializer) override;
 
 
 private:

@@ -102,7 +102,7 @@ void CMeshFilter::Serialize(ToyUtility::Serializer & serializer) const
 {
 }
 
-void CMeshFilter::Unserialize(ToyUtility::Serializer & serializer)
+void CMeshFilter::Unserialize(ToyUtility::Unserializer & serializer)
 {
 }
 
