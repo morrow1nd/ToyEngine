@@ -7,6 +7,7 @@
 namespace ToyEngine
 {
 
+
 void Scene::AttachChild(SceneObject so)
 {
     m_Children.push_back(so);
