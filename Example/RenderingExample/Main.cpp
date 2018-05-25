@@ -7,7 +7,7 @@
 
 #include "ToyEngine/Engine/Engine.h"
 #include "ToyUtility/Prerequisites/PreDefine.h"
-#include "ToyUtility/Serialization/XmlSerializer.h"
+#include "ToyUtility/Serialization/JsonSerializer.h"
 #include "ToyUtility/DataStream/FileDataStream.h"
 #include "GLFW/glfw3.h"
 //#define STB_IMAGE_IMPLEMENTATION
@@ -162,8 +162,8 @@ void main()
 
     camera->SetTransform(cameraTrfm.GetWorldTransform());
 
-    FileDataStream stream("D:\\test.xml", DataStream::AccessMode::WRITE);
-    XmlSerializer serializer(stream);
+    FileDataStream stream("D:\\test.json", DataStream::AccessMode::WRITE);
+    JsonSerializer serializer(stream);
     sceneManager->GetCurrScene()->Serialize(serializer);
     serializer.Flush();
 }
