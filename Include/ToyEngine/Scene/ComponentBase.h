@@ -2,6 +2,7 @@
 
 #include "ToyUtility/Prerequisites/PreDefine.h"
 #include "ToyUtility/Serialization/Serializable.h"
+#include "ToyUtility/DesignPattern/IUncopyable.h"
 #include "ToyEngine/Scene/IComponent.h"
 #include "ToyEngine/Scene/SceneObject.h"
 
@@ -10,7 +11,11 @@ namespace ToyEngine
 {
 
 
-class ComponentBase : public IComponent, public ToyUtility::Serializable
+class ComponentBase
+    :
+    public IComponent,
+    public ToyUtility::Serializable,
+    private ToyUtility::IUncopyable
 {
 public:
     // TODO: maybe we should rename to SetSO

@@ -38,11 +38,31 @@ set(TOY_ENGINE_SRC_GRAPHICS
 )
 
 SET(TOY_ENGINE_INC_RESOURCE
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/RBinary.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/Resource.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/ResourceHandle.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/ResourceLibrary.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/ResourceManager.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/RMaterial.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/RMesh.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/RScene.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/RShader.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/RText.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/RTexture2D.h"
 )
 
 set(TOY_ENGINE_SRC_RESOURCE
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RBinary.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/Resource.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/ResourceHandle.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/ResourceLibrary.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/ResourceManager.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RMaterial.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RMesh.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RScene.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RShader.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RText.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RTexture2D.cpp"
 )
 
 SET(TOY_ENGINE_INC_SCENE
