@@ -146,7 +146,10 @@ void main()
     subShader.SetName("subShader");
     subShader.PushPass(pass);
 
-    SPtr<Shader> shader = SPtr<Shader>(new Shader(ShaderName("name"), {}, {subShader}, ShaderName("fallback_shader")));
+    SPtr<Shader> shader = SPtr<Shader>(new Shader());
+    shader->SetName(ToyEngine::ShaderName("name"));
+    shader->SetFallback(ToyEngine::ShaderName("fallback"));
+    shader->PushSubShader(subShader);
     SPtr<Material> material = SPtr<Material>(new Material());
     material->SetShader(shader);
 

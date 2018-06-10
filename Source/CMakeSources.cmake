@@ -39,10 +39,13 @@ set(TOY_ENGINE_SRC_GRAPHICS
 
 SET(TOY_ENGINE_INC_RESOURCE
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/RBinary.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/RDirectory.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/Resource.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/ResourceHandle.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/ResourceLibrary.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/ResourceManager.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/ResourcePath.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/ResourceSource.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/RMaterial.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/RMesh.h"
 	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/RScene.h"
@@ -53,16 +56,31 @@ SET(TOY_ENGINE_INC_RESOURCE
 
 set(TOY_ENGINE_SRC_RESOURCE
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RBinary.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RDirectory.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/Resource.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/ResourceHandle.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/ResourceLibrary.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/ResourceManager.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/ResourcePath.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RMaterial.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RMesh.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RScene.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RShader.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RText.cpp"
 	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/RTexture2D.cpp"
+)
+
+SET(TOY_ENGINE_INC_RESOURCE_FILESYSTEMRESOURCESOURCE
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/FileSystemResourceSource/FileSystemCachedInfo.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/FileSystemResourceSource/FileSystemResourceFactory.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/FileSystemResourceSource/FileSystemResourceLoader.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/FileSystemResourceSource/FileSystemResourceSource.h"
+	"${TOY_ENGINE_INCLUDE_DIR}/ToyEngine/Resource/FileSystemResourceSource/FileSystemResourceUnloader.h"
+)
+SET(TOY_ENGINE_SRC_RESOURCE_FILESYSTEMRESOURCESOURCE
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/FileSystemResourceSource/FileSystemCachedInfo.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/FileSystemResourceSource/FileSystemResourceFactory.cpp"
+	"${TOY_ENGINE_SOURCE_DIR}/ToyEngine/Resource/FileSystemResourceSource/FileSystemResourceSource.cpp"
 )
 
 SET(TOY_ENGINE_INC_SCENE
@@ -131,6 +149,8 @@ source_group("Header Files\\Graphics"					FILES ${TOY_ENGINE_INC_GRAPHICS})
 source_group("Source Files\\Graphics"					FILES ${TOY_ENGINE_SRC_GRAPHICS})
 source_group("Header Files\\Resource"					FILES ${TOY_ENGINE_INC_RESOURCE})
 source_group("Source Files\\Resource"					FILES ${TOY_ENGINE_SRC_RESOURCE})
+source_group("Header Files\\Resource\\File System Resource Source"					FILES ${TOY_ENGINE_INC_RESOURCE_FILESYSTEMRESOURCESOURCE})
+source_group("Source Files\\Resource\\File System Resource Source"					FILES ${TOY_ENGINE_SRC_RESOURCE_FILESYSTEMRESOURCESOURCE})
 source_group("Header Files\\Scene"						FILES ${TOY_ENGINE_INC_SCENE})
 source_group("Source Files\\Scene"						FILES ${TOY_ENGINE_SRC_SCENE})
 source_group("Header Files\\Scene\\Components"			FILES ${TOY_ENGINE_INC_SCENE_COMPONENTS})
@@ -156,4 +176,6 @@ set(TOY_ENGINE_SRC
 	${TOY_ENGINE_SRC_GRAPHICS}
 	${TOY_ENGINE_INC_RESOURCE}
 	${TOY_ENGINE_SRC_RESOURCE}
+	${TOY_ENGINE_INC_RESOURCE_FILESYSTEMRESOURCESOURCE}
+	${TOY_ENGINE_SRC_RESOURCE_FILESYSTEMRESOURCESOURCE}
 )

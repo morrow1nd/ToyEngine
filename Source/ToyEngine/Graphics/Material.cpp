@@ -1,5 +1,6 @@
 #include "ToyEngine/Graphics/Material.h"
 #include "ToyEngine/Debug/Logger.h"
+#include "ToyEngine/Debug/Assert.h"
 
 
 namespace ToyEngine
@@ -14,7 +15,7 @@ int Material::GetShaderPropertieCount() const
     return m_Shader->GetProperties().size();
 }
 
-const ShaderPropertie* Material::GetShaderPropertieInfo(int index) const
+const Shader::ShaderPropertieType* Material::GetShaderPropertieInfo(int index) const
 {
     if(m_Shader == nullptr)
         return nullptr;
@@ -95,6 +96,13 @@ int Material::GetShaderPropertieValueLength(int index) const
     }
 }
 
+void Material::SetAllShaderPropertieValues(const ToyUtility::List<ToyUtility::uint8>& properties)
+{
+    TOY_ASSERT(properties.size() == m_AllValueLength);
+
+    memcpy(m_ShaderPropertieValues, &properties.front(), properties.size());
+}
+
 void Material::SetShader(ToyUtility::SPtr<Shader> shader)
 {
     m_Shader = shader;
@@ -124,6 +132,8 @@ void Material::_RecalcShaderPropertieValueOffsets()
     {
         m_Offsets[i] = m_Offsets[i - 1] + properties[i - 1].GetValueSize();
     }
+
+    m_AllValueLength = m_Offsets.back() + properties.back().GetValueSize();
 }
 
 

@@ -3,7 +3,9 @@
 #include "ToyUtility/Prerequisites/PreDefine.h"
 #include "ToyUtility/String/String.h"
 #include "ToyUtility/Container/List.h"
+#include "ToyUtility/Random/UUID.h"
 #include "ToyEngine/Resource/ResourceHandle.h"
+#include "ToyEngine/Resource/ResourcePath.h"
 
 
 namespace ToyEngine
@@ -38,27 +40,27 @@ public:
     void DeInit();
 
 
-    HResource Load(/*Path*/);
-    HResource Load(/*UUID*/);
+    HResource Load(const ResourcePath& path);
+    HResource Load(const ToyUtility::UUID& uuid);
 
-    bool Exist(/*Path*/) const;
-    bool Exist(/*UUID*/) const;
+    bool Exist(const ResourcePath& path) const;
+    bool Exist(const ToyUtility::UUID& uuid) const;
 
-    void Delete(/*Path*/);
-    void Delete(/*UUID*/);
-    void Delete(/*HResource*/);
+    void Delete(const ResourcePath& path);
+    void Delete(const ToyUtility::UUID& uuid);
+    void Delete(HResource resource);
 
-    void Move(/*Path from, Path to*/);
+    void Move(const ResourcePath& from, const ResourcePath& to);
 
-    void Copy(/*Path from, Path to*/);
-    void Copy(/*UUID from, UUID to*/);
-    void Copy(/*HResource from, HResource to*/);
+    void Copy(const ResourcePath& from, const ResourcePath& to);
+    void Copy(const ToyUtility::UUID& from, const ToyUtility::UUID& to);
+    void Copy(HResource from, HResource to);
 
     HResource Create(/*...*/);
 
-    void Unload(/*Path*/);
-    void Unload(/*UUID*/);
-    void Unload(/*HResource*/);
+    void Unload(const ResourcePath& path);
+    void Unload(const ToyUtility::UUID& uuid);
+    void Unload(HResource resource);
 
     void ReleaseUnusedResource();
 

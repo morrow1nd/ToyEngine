@@ -3,6 +3,7 @@
 #include "ToyUtility/Prerequisites/PreDefine.h"
 #include "ToyUtility/String/String.h"
 #include "ToyUtility/Container/List.h"
+#include "ToyUtility/Memory/FrameAllocator.h"
 #include "TRL/CommonType.h"
 
 
@@ -31,28 +32,62 @@ private:
     ToyUtility::List<ToyUtility::String> m_Paths;
 };
 
+
+enum class ShaderPropertieDataType
+{
+    NONE = 0,
+
+    Color,
+    Texture2D,
+    Raw,
+};
+
+template<typename AllocatorType>
 class ShaderPropertie
 {
 public:
-    enum class ShaderPropertieDataType
-    {
-        NONE = 0,
-
-        Color,
-        Texture2D,
-        Raw,
-    };
-
-public:
-    ShaderPropertie()
+    ShaderPropertie(AllocatorType& allocator)
         :
         m_InitDataLength(0),
         m_InitData(nullptr),
-        m_ArrayLength(1)
+        m_ArrayLength(1),
+        m_Allocator(allocator)
     {}
 
+    ~ShaderPropertie()
+    {
+        if (m_InitData != nullptr)
+        {
+            m_Allocator.Free(m_InitData);
+            m_InitData = nullptr;
+        }
+    }
 
-public:    
+    ShaderPropertie(const ShaderPropertie& sp)
+        :
+        m_InitDataLength(0), // TODOH
+        m_InitData(nullptr),
+        m_ArrayLength(sp.m_ArrayLength),
+        m_Allocator(sp.m_Allocator)
+    {
+        // TODO
+    }
+
+    ShaderPropertie(ShaderPropertie&& sp)
+        :
+        m_InitDataLength(0), // TODOH
+        m_InitData(nullptr),
+        m_ArrayLength(sp.m_ArrayLength),
+        m_Allocator(sp.m_Allocator)
+    {
+        std::swap(m_Name, sp.m_Name);
+        std::swap(m_MatName, sp.m_MatName);
+        std::swap(m_InitData, sp.m_InitData);
+        std::swap(m_InitDataLength, sp.m_InitDataLength);
+    }
+
+
+public:
     const ToyUtility::String& GetName() const { return m_Name; }
     void SetName(const ToyUtility::String& name) { m_Name = name; }
     TRL::GpuDataType GetDataType() const { return m_DataType; }
@@ -78,6 +113,7 @@ private:
     void* m_InitData;
 
     mutable int m_InitDataLength;
+    AllocatorType& m_Allocator;
 };
 
 class Pass
@@ -104,6 +140,7 @@ public:
     void SetName(const ToyUtility::String& name) { m_Name = name; }
 
     const ToyUtility::List<Pass>& GetPasses() const { return m_Passes; } // TODO: remove this
+    ToyUtility::List<Pass>& Passes() { return m_Passes; }
     void PushPass(Pass& pass) { m_Passes.push_back(pass); }
 
 private:
@@ -115,30 +152,43 @@ private:
 class Shader
 {
 public:
-    Shader(ShaderName& name,
-        const ToyUtility::List<ShaderPropertie>& properties,
-        const ToyUtility::List<SubShader>& subShaders,
-        ShaderName& fallback)
+    Shader()
         :
-        m_Name(name),
-        m_Properties(properties),
-        m_SubShaders(subShaders),
-        m_Fallback(fallback)
+        m_FrameAllocator(m_NormalAllocator)
     {}
+
+    ~Shader()
+    {
+        m_FrameAllocator.Clear();
+    }
 
 
 public:
+    using ShaderPropertieType = ShaderPropertie<ToyUtility::FrameAllocator<ToyUtility::NormalAllocator>>;
+
     const ShaderName& GetName() const { return m_Name; }
     const ShaderName& GetFallback() const { return m_Fallback; }
-    const ToyUtility::List<ShaderPropertie>& GetProperties() const { return m_Properties; }
+    const ToyUtility::List<ShaderPropertieType>& GetProperties() const { return m_Properties; }
     const ToyUtility::List<SubShader>& GetSubShaders() const { return m_SubShaders; }
+
+    void SetName(const ShaderName& name) { m_Name = name; }
+    void PushPropertie(TRL::GpuDataType dataType, ToyUtility::uint16 arrayLength,
+        const ToyUtility::String& variableName,
+        const ToyUtility::String& materialName,
+        ShaderPropertieDataType materialDataType,
+        const void* initValue);
+    void PushSubShader(const SubShader& subShader) { m_SubShaders.push_back(subShader); }
+    void SetFallback(const ShaderName& name) { m_Fallback = name; }
 
 
 private:
     ShaderName m_Name;
-    ToyUtility::List<ShaderPropertie> m_Properties;
+    ToyUtility::List<ShaderPropertieType> m_Properties;
     ToyUtility::List<SubShader> m_SubShaders;
     ShaderName m_Fallback;
+
+    ToyUtility::NormalAllocator m_NormalAllocator;
+    ToyUtility::FrameAllocator<ToyUtility::NormalAllocator> m_FrameAllocator;
 };
 
 

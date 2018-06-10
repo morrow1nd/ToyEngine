@@ -15,11 +15,13 @@ class Material
 {
 public:
     int GetShaderPropertieCount() const;
-    const ShaderPropertie* GetShaderPropertieInfo(int index) const;
+    const Shader::ShaderPropertieType* GetShaderPropertieInfo(int index) const;
 
     void SetShaderPropertieValue(int index, const void* data, int copyLength);
     const void* GetShaderPropertieValue(int index) const;
     int GetShaderPropertieValueLength(int index) const;
+
+    void SetAllShaderPropertieValues(const ToyUtility::List<ToyUtility::uint8>& properties);
 
     void SetShader(ToyUtility::SPtr<Shader> shader);
     ToyUtility::SPtr<Shader> GetShader() const { return m_Shader; }
@@ -34,6 +36,7 @@ private:
 
     ToyUtility::List<int> m_Offsets;
     int m_AllValueLength;
+
     void* m_ShaderPropertieValues;
 };
 

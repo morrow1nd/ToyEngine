@@ -5,18 +5,20 @@
 namespace ToyEngine
 {
 
-void ShaderPropertie::SetInitData(const void * initData, int dataLength)
+
+template<typename AllocatorType>
+void ShaderPropertie<AllocatorType>::SetInitData(const void * initData, int dataLength)
 {
-    // TODO: use memcpy. remove new and delete
-    
+    // TODOH: use memcpy
+
     if (m_InitDataLength < dataLength)
     {
         if (m_InitData != nullptr)
         {
-            delete[] m_InitData;
+            m_Allocator.Free(m_InitData);
         }
 
-        m_InitData = new char[dataLength + 1];
+        m_InitData = m_Allocator.Alloc(dataLength + 1);
         m_InitDataLength = dataLength;
     }
 
@@ -26,10 +28,28 @@ void ShaderPropertie::SetInitData(const void * initData, int dataLength)
     }
 }
 
-int ShaderPropertie::GetValueSize() const
+template<typename AllocatorType>
+int ShaderPropertie<AllocatorType>::GetValueSize() const
 {
     int dataSize = TRL::RenderAPI::GetGpuDataTypeSize(m_DataType);
     return dataSize * m_ArrayLength;
+}
+
+void ToyEngine::Shader::PushPropertie(TRL::GpuDataType dataType, ToyUtility::uint16 arrayLength,
+    const ToyUtility::String & variableName,
+    const ToyUtility::String & materialName,
+    ShaderPropertieDataType materialDataType,
+    const void * initValue)
+{
+    ShaderPropertieType propertie(m_FrameAllocator);
+    propertie.SetArrayLength(arrayLength);
+    propertie.SetDataType(dataType);
+    propertie.SetName(variableName);
+    propertie.SetInitData(initValue, TRL::RenderAPI::GetGpuDataTypeSize(dataType));
+    propertie.SetMatName(materialName);
+    propertie.SetMatDataType(materialDataType);
+
+    m_Properties.push_back(propertie);
 }
 
 
