@@ -1,0 +1,16 @@
+#define TRLSL_T_LB                               1
+#define TRLSL_T_RB                               2
+#define TRLSL_T_LS                               3
+#define TRLSL_T_CONSTANT_STRING                  4
+#define TRLSL_T_RS                               5
+#define TRLSL_T_ASSIGN                           6
+#define TRLSL_T_PROPERTIES                       7
+#define TRLSL_T_PASS                             8
+#define TRLSL_T_GLSL_VERTEX                      9
+#define TRLSL_T_LITERAL_CONTENT                 10
+#define TRLSL_T_GLSL_FRAGEMENT                  11
+#define TRLSL_T_TRLSL_VERTEX                    12
+#define TRLSL_T_TRLSL_FRAMEMENT                 13
+#define TRLSL_T_SUB_SHADER                      14
+#define TRLSL_T_FALLBACK                        15
+#define TRLSL_T_SHADER                          16
