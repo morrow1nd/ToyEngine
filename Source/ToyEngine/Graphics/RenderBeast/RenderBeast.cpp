@@ -151,7 +151,7 @@ void RenderBeast::_RenderMesh(float deltaTime, CCamera& camera, CMeshFilter& mes
             std::cout << "can't find ...";
         }
 
-        attrib.SetAttributeArray(var, vbo, 3, GPU_FLOAT, false, 3 * sizeof(float), 0);
+        attrib.SetAttributeArray(var, vbo, GpuVariableComponentSize::_3, GPU_FLOAT, AttributeData::NormalizeAction::NotNeedNormalize, 3 * sizeof(float), 0);
         attrib.SetIndicesBuffer(ebo, 6, GPU_UNSIGNED_INT);
         attrib.Inactive();
 
